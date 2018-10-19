@@ -1,5 +1,6 @@
 //STATS
-var playerStats = {
+var player = {
+    name: "Typical Hero Name",
     health: 100,
     maxHealth: 100,
     damage: 5,
@@ -7,7 +8,8 @@ var playerStats = {
     xp:0
 };
 
-var monsterStats = {
+var enemy = {
+    name: "Bandit",
     health: 100,
     maxHealth: 100,
     damage: 5,
@@ -16,20 +18,37 @@ var monsterStats = {
 };
 //SHOP BUTTON TO GO TO SHOP SCREEN
 //document.getElementById("shopButton").addEventListener("click", openShopScreen());
+document.getElementById("battleButton").addEventListener("click", battle());
 
-function battle(monster) {
 
+function battle() {
+    //var myVar = setInterval(applyDamage, 3000);
+    applyDamage();
+    function applyDamage() {
+            player.health = - enemy.health;
+            enemy.health = - player.health;
+        if (player.health < 1) {
+            console.log("You're dead");
+        } else if (enemy.health < 1){
+            console.log("Enemy defeated");
+        }
+
+    };
+    console.log(player.health);
+    console.log(enemy.health);
 };
 
 function displayStats() {
     //UPDATE PLAYER STATS
-    document.getElementById("playerHealth").innerHTML = playerStats.health + "/" + playerStats.maxHealth;
-    document.getElementById("playerDamage").innerHTML = playerStats.damage;
-    document.getElementById("playerXP").innerHTML = playerStats.xp;
-    document.getElementById("playerLevel").innerHTML = playerStats.level;
+    document.getElementById("playerHeader").innerHTML = player.name + ":";
+    document.getElementById("playerHealth").innerHTML = "Health: " + player.health + "/" + player.maxHealth;
+    document.getElementById("playerDamage").innerHTML = "Damage: " + player.damage;
+    document.getElementById("playerXP").innerHTML = "XP: " + player.xp;
+    document.getElementById("playerLevel").innerHTML = "Level " + player.level;
     //UPDATE ENEMY STATS
-    document.getElementById("enemyHealth").innerHTML = monsterStats.health;
-    document.getElementById("enemyDamage").innerHTML = monsterStats.damage;
+    document.getElementById("enemyHeader").innerHTML = enemy.name + ":";
+    document.getElementById("enemyHealth").innerHTML = "Health: " + enemy.health;
+    document.getElementById("enemyDamage").innerHTML = "Damage: " + enemy.damage;
 };
 displayStats();
 

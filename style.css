@@ -1,33 +1,10 @@
-#shopButton{
-
-}
-
-#battleButton{
-
-}
-
-#statBar{
-    width:100%;
-    background-color:#121212;
-    height:25vh;
-    position: absolute;
-    bottom:0px;
+#battleScreen{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    color:white;
+    grid-template-columns:1fr 1fr;
 }
-
-#health{
-    /*background-image: url(assets/images/pixelheart.png);*/
-}
-
-#damage {
-    /*background-image: url(assets/images/pixelsword.jpg);*/
-}
-
-#health, #damage, #xp {
-    /*background-size: contain;
-    background-repeat: no-repeat;
-    color: white;
-    background-position: center;*/
+#battleButton{
+    width: 100px;
+    height: 45px;
+    background-color: blue;
+    cursor: pointer;
 }

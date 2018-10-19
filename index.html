@@ -2,9 +2,7 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js"></script>
     <title></title>
 </head>
 <body>
@@ -12,20 +10,26 @@
     <div id="shopScreen"></div>
     <div id="battleButton"></div>-->
     <div id="battleScreen">
-        <div id="playerStats">
-            <p id="playerName"></p>
-            <p id="playerHealth"></p>
-            <p id="playerDamage"></p>
-            <p id="playerXP"></p>
-            <p id="playerLevel"></p>
+        <div class="battleContainer">
+            <div id="playerStats">
+                <p id="playerHeader"></p>
+                <p id="playerName"></p>
+                <p id="playerHealth"></p>
+                <p id="playerDamage"></p>
+                <p id="playerXP"></p>
+                <p id="playerLevel"></p>
+            </div>
         </div>
         <div id="enemyStats">
+            <p id="enemyHeader"></p>
             <p id="enemyName"></p>
             <p id="enemyHealth"></p>
             <p id="enemyDamage"></p>
         </div>
     </div>
+    <div id="battleButton"></div>
     
     
+    <script src="script.js"></script>
 </body>
 </html>
