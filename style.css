@@ -1,19 +1,26 @@
-#battleScreen{
-    display: grid;
-    grid-template-columns:1fr 1fr;
+#battleScreen {
+    z-index: 0;
+    background-color: rgb(74, 74, 74);
+    height:100vh;
+    top:0;
+    left: 0;
 }
+
 #battleButton{
     width: 100px;
     height: 45px;
-    background-color: blue;
+    background-color: rgb(7, 154, 239);
     cursor: pointer;
     color: white;
     text-align:center;
 }
 .healthBar{
     height: 50px;
-    width: 100%;
-    background-color:red;
+    background-color:rgb(217, 24, 24);
+    width:100%;
+    position:absolute;
+    bottom:0;
+    left:0;
 }
 #shopScreen{
     width:0;
@@ -25,4 +32,17 @@
     left: 0;
     overflow-x: hidden;
     
+}
+.container {
+    position: relative;
+    width: 500px;
+    background-color: rgb(12, 12, 12);
+    color: white;
+    font-family: Garamond,Baskerville,Baskerville Old Face,Hoefler Text,Times New Roman,serif;
+    font-size:20px;
+    font-weight: bold;
+    margin: 25px;
+}
+#playerStats, #enemyStats{
+    margin-left:10px;
 }

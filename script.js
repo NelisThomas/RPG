@@ -17,40 +17,45 @@ function Hero(name, health, maxHealth, damage, level, xp) {
 
 var player = new Hero("John Doe", 100, 100, 12, 1, 0);
 //ENEMIES
-var bandit1 = new Enemy("Bandit", 75, 50, 5);
-var bandit2 = new Enemy("Skeleton", 80, 20, 7);
-var bandit3 = new Enemy("Bandit3", 75, 75, 10);
-var bandit4 = new Enemy("Bandit4", 60, 50, 5);
+var enemy1 = new Enemy("Bandit", 75, 75, 8);
+var enemy2 = new Enemy("Skeleton", 40, 40, 5);
+var enemy3 = new Enemy("Tank", 150, 150, 5);
+var enemy4 = new Enemy("Weak yet surprisingly strong guy", 10, 10, 99);
 
-var enemies = [bandit1, bandit2, bandit3, bandit4];
-var randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+var enemies = [enemy1, enemy2, enemy3, enemy4];
 
 document.getElementById("battleButton").addEventListener("click", attack);
 
+var randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
 
 function attack() {
     battle(player, randomEnemy);
 }
 function battle(player, enemy) {
-    
-    if (player.health < 1) {
-        alert("You're dead");
-    }
-
     if (player.health > 0) {
         player.health -= enemy.damage;
         enemy.health -= player.damage;
         displayStats(player, randomEnemy);
+        if (player.health < 1) {
+            alert("You're dead");
+        }
         if (enemy.health < 1) {
             player.xp += 25;
-            player.health = player.maxHealth;
-            enemy.health = enemy.maxHealth;
             displayStats(player, randomEnemy);
+            document.getElementById("enemyHealth").innerHTML = "Health: " + 0;
+            document.getElementById("enemyHealthBar").style.display = "none";
         }
     }
 
    
 };
+
+function xpCheck() {
+    if (player.xp > 100) {
+        var i = player.xp / 100;
+        player.level += i;
+    }
+}
 
 function displayStats(player, enemy) {
     //UPDATE PLAYER STATS
@@ -63,7 +68,8 @@ function displayStats(player, enemy) {
     //UPDATE ENEMY STATS
     document.getElementById("enemyHeader").innerHTML = enemy.name + ":";
     document.getElementById("enemyHealth").innerHTML = "Health: " + enemy.health;
-    document.getElementById("enemyHealthBar").style.width = enemy.health + "%";
+    var enemyHealthPercentage = (enemy.health / enemy.maxHealth) * 100;
+    document.getElementById("enemyHealthBar").style.width = enemyHealthPercentage + "%";
     document.getElementById("enemyDamage").innerHTML = "Damage: " + enemy.damage;
 };
 displayStats(player, randomEnemy);
