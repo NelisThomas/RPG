@@ -12,7 +12,7 @@ var enemy = {
     name: "Bandit",
     health: 100,
     maxHealth: 100,
-    damage: 5,
+    damage: 3,
     level: 1,
     xp: 0
 };
@@ -23,10 +23,9 @@ document.getElementById("battleButton").addEventListener("click", battle());
 
 function battle() {
     //var myVar = setInterval(applyDamage, 3000);
-    applyDamage();
     function applyDamage() {
-            player.health = - enemy.health;
-            enemy.health = - player.health;
+            player.health -= enemy.damage;
+            enemy.health -= player.damage;
         if (player.health < 1) {
             console.log("You're dead");
         } else if (enemy.health < 1){
@@ -34,6 +33,7 @@ function battle() {
         }
 
     };
+    applyDamage();
     console.log(player.health);
     console.log(enemy.health);
 };
