@@ -18,22 +18,25 @@ var enemy = {
 };
 //SHOP BUTTON TO GO TO SHOP SCREEN
 //document.getElementById("shopButton").addEventListener("click", openShopScreen());
-document.getElementById("battleButton").addEventListener("click", battle());
+document.getElementById("battleButton").addEventListener("click", battle    );
 
 
 function battle() {
     //var myVar = setInterval(applyDamage, 3000);
-    function applyDamage() {
-            player.health -= enemy.damage;
-            enemy.health -= player.damage;
+    //function applyDamage() {
+    player.health -= enemy.damage;
+    document.getElementById("playerHealth").innerHTML = "Health: " + player.health + "/" + player.maxHealth;
+    document.getElementById("playerHealthBar").style.width = player.health + "%";
+    enemy.health -= player.damage;
+    document.getElementById("enemyHealth").innerHTML = "Health: " + enemy.health;
         if (player.health < 1) {
             console.log("You're dead");
         } else if (enemy.health < 1){
             console.log("Enemy defeated");
         }
 
-    };
-    applyDamage();
+    //};
+    //applyDamage();
     console.log(player.health);
     console.log(enemy.health);
 };

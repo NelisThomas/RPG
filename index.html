@@ -10,7 +10,8 @@
     <div id="shopScreen"></div>
     <div id="battleButton"></div>-->
     <div id="battleScreen">
-        <div class="battleContainer">
+
+        <div class="container">
             <div id="playerStats">
                 <p id="playerHeader"></p>
                 <p id="playerName"></p>
@@ -19,15 +20,21 @@
                 <p id="playerXP"></p>
                 <p id="playerLevel"></p>
             </div>
+            <div class="healthBar" id="playerHealthBar"></div>
         </div>
-        <div id="enemyStats">
-            <p id="enemyHeader"></p>
-            <p id="enemyName"></p>
-            <p id="enemyHealth"></p>
-            <p id="enemyDamage"></p>
+
+        <div class="container">
+            <div id="enemyStats">
+                <p id="enemyHeader"></p>
+                <p id="enemyName"></p>
+                <p id="enemyHealth"></p>
+                <p id="enemyDamage"></p>
+            </div>
+            <div class="healthBar" id="enemyHealthBar"></div>
         </div>
+
     </div>
-    <div id="battleButton" onclick="battle()"></div>
+    <div id="battleButton"></div>
     
     
     <script src="script.js"></script>
