@@ -29,6 +29,7 @@ function battle() {
     document.getElementById("playerHealthBar").style.width = player.health + "%";
     enemy.health -= player.damage;
     document.getElementById("enemyHealth").innerHTML = "Health: " + enemy.health;
+    document.getElementById("enemyHealthBar").style.width = enemy.health + "%";
         if (player.health < 1) {
             console.log("You're dead");
         } else if (enemy.health < 1){
