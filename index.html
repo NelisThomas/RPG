@@ -6,38 +6,39 @@
     <title></title>
 </head>
 <body>
-    <!--<div id="shopButton"></div>
-    <div id="shopScreen"></div>
-    <div id="battleButton"></div>-->
-    <div id="battleScreen">
-
-        <div style="display:grid; grid-template-columns: 1fr 1fr">
-            <div class="container">
-                <div id="playerStats">
-                    <p id="playerHeader"></p>
-                    <p id="playerName"></p>
-                    <p id="playerHealth"></p>
-                    <p id="playerDamage"></p>
-                    <p id="playerXP"></p>
-                    <p id="playerLevel"></p>
-                </div>
-                <div class="healthBar" id="playerHealthBar"></div>
-            </div>
-
-            <div class="container">
-                <div id="enemyStats">
-                    <p id="enemyHeader"></p>
-                    <p id="enemyName"></p>
-                    <p id="enemyHealth"></p>
-                    <p id="enemyDamage"></p>
-                </div>
-                <div class="healthBar" id="enemyHealthBar"></div>
-            </div>
+    <div style="position:relative;">
+        <div id="shopScreen">
+            <div id="newBattleButton">NEW BATTLE</div>
         </div>
+        <div id="battleScreen">
 
-    <div id="battleButton">FIGHT</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr">
+                <div class="container">
+                    <div id="playerStats">
+                        <p id="playerHeader"></p>
+                        <p id="playerName"></p>
+                        <p id="playerHealth"></p>
+                        <p id="playerDamage"></p>
+                        <p id="playerXP"></p>
+                        <p id="playerLevel"></p>
+                    </div>
+                    <div class="healthBar" id="playerHealthBar"></div>
+                </div>
+
+                <div class="container">
+                    <div id="enemyStats">
+                        <p id="enemyHeader"></p>
+                        <p id="enemyName"></p>
+                        <p id="enemyHealth"></p>
+                        <p id="enemyDamage"></p>
+                    </div>
+                    <div class="healthBar" id="enemyHealthBar"></div>
+                </div>
+            </div>
+
+        <div id="battleButton">FIGHT</div>
+        </div>
     </div>
-    <div id="shopScreen"></div>
     
     
     <script src="script.js"></script>

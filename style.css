@@ -4,6 +4,7 @@
     height:100vh;
     top:0;
     left: 0;
+    position: fixed;
 }
 
 #battleButton{
@@ -23,15 +24,14 @@
     left:0;
 }
 #shopScreen{
-    width:0;
+    display:block;
     height: 100%;
+    width: 100%;
     position: fixed;
-    background-color: rgba(0, 0, 255, 0.95);
+    background-color: rgb(7, 52, 78);
     z-index: 1;
     top: 0;
     left: 0;
-    overflow-x: hidden;
-    
 }
 .container {
     position: relative;
@@ -45,4 +45,10 @@
 }
 #playerStats, #enemyStats{
     margin-left:10px;
+}
+#newBattleButton{
+    height:50px;
+    width:100px;
+    background-color:blue;
+    color: white;
 }
