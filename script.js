@@ -38,7 +38,7 @@ var enemies = [enemy1, enemy2, enemy3, enemy4];
 
 document.getElementById("newBattleButton").addEventListener("click", newBattle);
 
-var randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+var randomEnemy/* = enemies[Math.floor(Math.random() * enemies.length)]*/;
 
 function newBattle() {
     document.getElementById("battleButton").addEventListener("click", attack); 
@@ -46,6 +46,7 @@ function newBattle() {
     randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
     displayStats(player,randomEnemy);
     //PLAYER DAMAGES ENEMY
+    damageEnemy();
     //INTERVAL ENEMY DAMAGES PLAYER
 
 
@@ -62,6 +63,7 @@ function newBattle() {
             }
             if (enemy.health < 1) {
                 player.xp += 25;
+                player.health = player.maxHealth;
                 displayStats(player, randomEnemy);
                 document.getElementById("enemyHealth").innerHTML = "Health: " + 0;
                 document.getElementById("enemyHealthBar").style.display = "none";
