@@ -36,49 +36,88 @@ var weapon2 = new Weapon("Wooden Sword", 4,5);
 
 var enemies = [enemy1, enemy2, enemy3, enemy4];
 
-document.getElementById("newBattleButton").addEventListener("click", newBattle);
+document.getElementById("newBattleButton").addEventListener("click", main);
 
 var randomEnemy/* = enemies[Math.floor(Math.random() * enemies.length)]*/;
 
-function newBattle() {
+function main() {
     document.getElementById("battleButton").addEventListener("click", attack); 
     document.getElementById("shopScreen").style.display = "none";
     randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
     displayStats(player, randomEnemy);
-
     randomEnemy.health = randomEnemy.maxHealth;
-    //PLAYER DAMAGES ENEMY
-    //damageEnemy();
-    //INTERVAL ENEMY DAMAGES PLAYER
-
 
     function attack() {
-        battle(player, randomEnemy);
+        damageEnemy(player, randomEnemy);
     }
-    function battle(player, enemy) {
-        if (player.health > 0) {
-            player.health -= enemy.damage;
-            enemy.health -= player.damage;
+
+    //PLAYER DAMAGES ENEMY
+    function damageEnemy(player, enemy){
+        enemy.health -= player.damage;
+        displayStats(player, randomEnemy);
+        checkEnemyHP(randomEnemy);
+    }
+    //CHECKS THAT ENEMY IS NOT DEAD
+    function checkEnemyHP(enemy) {
+        if (enemy.health < 1) {
+            player.xp += 25;
+            player.health = player.maxHealth;
             displayStats(player, randomEnemy);
+            document.getElementById("enemyHealth").innerHTML = "Health: " + 0;
+            document.getElementById("enemyHealthBar").style.display = "none";
+            document.getElementById("shopScreen").style.display = "block";
+
+
             console.log(player, enemy);
-            if (player.health < 1) {
-                alert("You're dead");
-            }
-            if (enemy.health < 1) {
-                player.xp += 25;
-                player.health = player.maxHealth;
-                displayStats(player, randomEnemy);
-                document.getElementById("enemyHealth").innerHTML = "Health: " + 0;
-                document.getElementById("enemyHealthBar").style.display = "none";
-                document.getElementById("shopScreen").style.display = "block";
-
-                console.log(player, enemy);
-            }
+        } else {
+            setTimeout(damagePlayer(player, randomEnemy), 5000);
+            //damagePlayer(player, randomEnemy);
         }
-
-
-    };
+       
+    }
+    
+    function damagePlayer(player, enemy) {
+        player.health -= enemy.damage;
+        displayStats(player, randomEnemy);
+        checkPlayerHP();
+    }
+    function checkPlayerHP(player) {
+        if (player.health < 1) {
+            alert("HP has reached 0. You died");
+            location.reload();
+        } else {
+            return;
+        }
+    }
 };
+
+
+                        //function attack() {
+                        //    battle(player, randomEnemy);
+                        //}
+                        //function battle(player, enemy) {
+                        //    if (player.health > 0) {
+                        //        player.health -= enemy.damage;
+                        //        enemy.health -= player.damage;
+                        //        displayStats(player, randomEnemy);
+                        //        console.log(player, enemy);
+                        //        if (player.health < 1) {
+                        //            alert("You're dead");
+                        //        }
+                        //        if (enemy.health < 1) {
+                        //            player.xp += 25;
+                        //            player.health = player.maxHealth;
+                        //            displayStats(player, randomEnemy);
+                        //            document.getElementById("enemyHealth").innerHTML = "Health: " + 0;
+                        //            document.getElementById("enemyHealthBar").style.display = "none";
+                        //            document.getElementById("shopScreen").style.display = "block";
+
+                        //            console.log(player, enemy);
+                        //        }
+                        //    }
+
+
+                        //};
 
 function xpCheck() {
     if (player.xp > 100) {
