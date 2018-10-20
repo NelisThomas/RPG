@@ -44,7 +44,9 @@ function newBattle() {
     document.getElementById("battleButton").addEventListener("click", attack); 
     document.getElementById("shopScreen").style.display = "none";
     randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
-    displayStats(player,randomEnemy);
+    displayStats(player, randomEnemy);
+
+    randomEnemy.health = randomEnemy.maxHealth;
     //PLAYER DAMAGES ENEMY
     //damageEnemy();
     //INTERVAL ENEMY DAMAGES PLAYER
@@ -58,6 +60,7 @@ function newBattle() {
             player.health -= enemy.damage;
             enemy.health -= player.damage;
             displayStats(player, randomEnemy);
+            console.log(player, enemy);
             if (player.health < 1) {
                 alert("You're dead");
             }
@@ -68,10 +71,8 @@ function newBattle() {
                 document.getElementById("enemyHealth").innerHTML = "Health: " + 0;
                 document.getElementById("enemyHealthBar").style.display = "none";
                 document.getElementById("shopScreen").style.display = "block";
-                enemy1 = new Enemy("Bandit", 75, 75, 8);
-                enemy2 = new Enemy("Skeleton", 40, 40, 5);
-                enemy3 = new Enemy("Tank", 150, 150, 5);
-                enemy4 = new Enemy("Mr Man Guy", 30, 30, 6);
+
+                console.log(player, enemy);
             }
         }
 
