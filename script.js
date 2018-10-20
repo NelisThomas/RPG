@@ -12,35 +12,41 @@ function Hero(name, health, maxHealth, damage, level, xp, armed, weapon) {
     this.damage = damage;
     this.level = level;
     this.xp = xp;
-    this.armed = armed;
-    this.weapon = weapon;
+    // this.armed = armed;
+    // this.weapon = weapon;
 }
 
-function Weapon(name, damage,durability) {
-    this.name = name;
-    this.damage = damage;
-    this.durability = durability;
-}
+// function Weapon(name, damage,durability) {
+    // this.name = name;
+    // this.damage = damage;
+    // this.durability = durability;
+// }
 
-//CONSTRUCTORS
-//PLAYER
-var player = new Hero("John Doe", 100, 100, 10, 1, 0);
-//ENEMIES
-var enemy1 = new Enemy("Bandit", 75, 75, 8);
-var enemy2 = new Enemy("Skeleton", 40, 40, 5);
-var enemy3 = new Enemy("Tank", 150, 150, 5);
-var enemy4 = new Enemy("Mr Man Guy", 30, 30, 6);
-//WEAPONS
-var weapon1 = new Weapon("Wooden Stick", 1,2);
-var weapon2 = new Weapon("Wooden Sword", 4,5);
 
-var enemies = [enemy1, enemy2, enemy3, enemy4];
+
+
 
 document.getElementById("newBattleButton").addEventListener("click", main);
 
 var randomEnemy/* = enemies[Math.floor(Math.random() * enemies.length)]*/;
 
 function main() {
+	
+	//RESTRUCTURE FUNCTION SO THAT IT IS RECURRING AND YOU CAN EXIT PARTS OF THE FUNCTION 
+	
+		//CONSTRUCTORS
+	//PLAYER
+	var player = new Hero("John Doe", 100, 100, 10, 1, 0);
+	//ENEMIES
+	var enemy1 = new Enemy("Bandit", 75, 75, 8);
+	var enemy2 = new Enemy("Skeleton", 40, 40, 5);
+	var enemy3 = new Enemy("Tank", 150, 150, 5);
+	var enemy4 = new Enemy("Mr Man Guy", 30, 30, 6);
+	//WEAPONS
+	// var weapon1 = new Weapon("Wooden Stick", 1,2);
+	// var weapon2 = new Weapon("Wooden Sword", 4,5);
+	var enemies = [enemy1, enemy2, enemy3, enemy4];
+	
     document.getElementById("battleButton").addEventListener("click", attack); 
     document.getElementById("shopScreen").style.display = "none";
     randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
@@ -70,6 +76,7 @@ function main() {
 
 
             console.log(player, enemy);
+			return;
         } else {
             setTimeout(damagePlayer(player, randomEnemy), 5000);
             //damagePlayer(player, randomEnemy);
@@ -80,7 +87,7 @@ function main() {
     function damagePlayer(player, enemy) {
         player.health -= enemy.damage;
         displayStats(player, randomEnemy);
-        checkPlayerHP();
+        checkPlayerHP(player);
     }
     function checkPlayerHP(player) {
         if (player.health < 1) {
@@ -90,42 +97,16 @@ function main() {
             return;
         }
     }
-};
-
-
-                        //function attack() {
-                        //    battle(player, randomEnemy);
-                        //}
-                        //function battle(player, enemy) {
-                        //    if (player.health > 0) {
-                        //        player.health -= enemy.damage;
-                        //        enemy.health -= player.damage;
-                        //        displayStats(player, randomEnemy);
-                        //        console.log(player, enemy);
-                        //        if (player.health < 1) {
-                        //            alert("You're dead");
-                        //        }
-                        //        if (enemy.health < 1) {
-                        //            player.xp += 25;
-                        //            player.health = player.maxHealth;
-                        //            displayStats(player, randomEnemy);
-                        //            document.getElementById("enemyHealth").innerHTML = "Health: " + 0;
-                        //            document.getElementById("enemyHealthBar").style.display = "none";
-                        //            document.getElementById("shopScreen").style.display = "block";
-
-                        //            console.log(player, enemy);
-                        //        }
-                        //    }
-
-
-                        //};
-
-function xpCheck() {
+	function xpCheck() {
     if (player.xp > 100) {
         player.level++;
         player.xp -= 100;
     }
 }
+};
+
+
+
 
 function displayStats(player, enemy) {
     //UPDATE PLAYER STATS
@@ -143,10 +124,4 @@ function displayStats(player, enemy) {
     document.getElementById("enemyHealthBar").style.display = "block";
     document.getElementById("enemyDamage").innerHTML = "Damage: " + enemy.damage;
 };
-//displayStats(player, randomEnemy);
-//maybe reference this function instead of having to copy past document.getEleblalablablabla
-
-    //document.getElementById = "damage".innerHTML(damage);
-    //document.getElementById = "xp".innerHTML(xp);
-
 
