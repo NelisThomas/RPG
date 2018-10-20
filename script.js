@@ -24,12 +24,12 @@ function Weapon(name, damage,durability) {
 
 //CONSTRUCTORS
 //PLAYER
-var player = new Hero("John Doe", 100, 100, 12, 1, 0);
+var player = new Hero("John Doe", 100, 100, 10, 1, 0);
 //ENEMIES
 var enemy1 = new Enemy("Bandit", 75, 75, 8);
 var enemy2 = new Enemy("Skeleton", 40, 40, 5);
 var enemy3 = new Enemy("Tank", 150, 150, 5);
-var enemy4 = new Enemy("Mr Man Guy", 30, 30, 60);
+var enemy4 = new Enemy("Mr Man Guy", 30, 30, 6);
 //WEAPONS
 var weapon1 = new Weapon("Wooden Stick", 1,2);
 var weapon2 = new Weapon("Wooden Sword", 4,5);
@@ -46,7 +46,7 @@ function newBattle() {
     randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
     displayStats(player,randomEnemy);
     //PLAYER DAMAGES ENEMY
-    damageEnemy();
+    //damageEnemy();
     //INTERVAL ENEMY DAMAGES PLAYER
 
 
@@ -68,6 +68,10 @@ function newBattle() {
                 document.getElementById("enemyHealth").innerHTML = "Health: " + 0;
                 document.getElementById("enemyHealthBar").style.display = "none";
                 document.getElementById("shopScreen").style.display = "block";
+                enemy1 = new Enemy("Bandit", 75, 75, 8);
+                enemy2 = new Enemy("Skeleton", 40, 40, 5);
+                enemy3 = new Enemy("Tank", 150, 150, 5);
+                enemy4 = new Enemy("Mr Man Guy", 30, 30, 6);
             }
         }
 
@@ -95,6 +99,7 @@ function displayStats(player, enemy) {
     document.getElementById("enemyHealth").innerHTML = "Health: " + enemy.health;
     var enemyHealthPercentage = (enemy.health / enemy.maxHealth) * 100;
     document.getElementById("enemyHealthBar").style.width = enemyHealthPercentage + "%";
+    document.getElementById("enemyHealthBar").style.display = "block";
     document.getElementById("enemyDamage").innerHTML = "Damage: " + enemy.damage;
 };
 //displayStats(player, randomEnemy);
