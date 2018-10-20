@@ -46,6 +46,7 @@ function main() {
     randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
     displayStats(player, randomEnemy);
     randomEnemy.health = randomEnemy.maxHealth;
+    xpCheck();
 
     function attack() {
         damageEnemy(player, randomEnemy);
@@ -121,8 +122,8 @@ function main() {
 
 function xpCheck() {
     if (player.xp > 100) {
-        var i = player.xp / 100;
-        player.level += i;
+        player.level++;
+        player.xp -= 100;
     }
 }
 
