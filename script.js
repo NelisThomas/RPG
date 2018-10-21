@@ -26,11 +26,9 @@ function Hero(name, health, maxHealth, damage, level, xp, armed, weapon) {
 
 
 
-document.getElementById("newBattleButton").addEventListener("click", main);
+document.getElementById("newBattleButton").addEventListener("click", battle);
 
-var randomEnemy/* = enemies[Math.floor(Math.random() * enemies.length)]*/;
-
-function main() {
+function battle() {
 	
 	//RESTRUCTURE FUNCTION SO THAT IT IS RECURRING AND YOU CAN EXIT PARTS OF THE FUNCTION 
 	
@@ -47,58 +45,36 @@ function main() {
 	// var weapon2 = new Weapon("Wooden Sword", 4,5);
 	var enemies = [enemy1, enemy2, enemy3, enemy4];
 	
-    document.getElementById("battleButton").addEventListener("click", attack); 
+    document.getElementById("battleButton").addEventListener("click", main); 
     document.getElementById("shopScreen").style.display = "none";
-    randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+    var randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
     displayStats(player, randomEnemy);
-    randomEnemy.health = randomEnemy.maxHealth;
     xpCheck();
-
-    function attack() {
-        damageEnemy(player, randomEnemy);
+    function main() {
+        attack(player, randomEnemy)
     }
-
-    //PLAYER DAMAGES ENEMY
-    function damageEnemy(player, enemy){
-        enemy.health -= player.damage;
-        displayStats(player, randomEnemy);
-        checkEnemyHP(randomEnemy);
-    }
-    //CHECKS THAT ENEMY IS NOT DEAD
-    function checkEnemyHP(enemy) {
-        if (enemy.health < 1) {
-            player.xp += 25;
-            player.health = player.maxHealth;
+    function attack (player, enemy) {
+        if (enemy.health && player.health >= 0) {
+            enemy.health -= player.damage;
             displayStats(player, randomEnemy);
-            document.getElementById("enemyHealth").innerHTML = "Health: " + 0;
-            document.getElementById("enemyHealthBar").style.display = "none";
-            document.getElementById("shopScreen").style.display = "block";
-
-
-            console.log(player, enemy);
-			return;
-        } else {
-            setTimeout(damagePlayer(player, randomEnemy), 5000);
-            //damagePlayer(player, randomEnemy);
+            if (enemy.health < 1) {
+                document.getElementById("shopScreen").style.display = "block";
+                document.getElementById("enemyHealthBar").style.display = "none";
+            } else if (player.health < 1) {
+                alert("U DEAD");
+            } else {
+                player.health -= enemy.damage;
+                displayStats(player, randomEnemy);
+            }
         }
-       
+        
+
     }
+
     
-    function damagePlayer(player, enemy) {
-        player.health -= enemy.damage;
-        displayStats(player, randomEnemy);
-        checkPlayerHP(player);
-    }
-    function checkPlayerHP(player) {
-        if (player.health < 1) {
-            alert("HP has reached 0. You died");
-            location.reload();
-        } else {
-            return;
-        }
-    }
+
 	function xpCheck() {
-    if (player.xp > 100) {
+    if (player.xp >= 100) {
         player.level++;
         player.xp -= 100;
     }
