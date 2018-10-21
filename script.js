@@ -34,9 +34,9 @@ function battle() {
 	var player = new Hero("John Doe", 100, 100, 10, 1, 0);
 	//ENEMIES
 	var enemy1 = new Enemy("Bandit", 100, 100, 11);
-	var enemy2 = new Enemy("Skeleton", 40, 40, 5);
-	var enemy3 = new Enemy("Tank", 150, 150, 5);
-	var enemy4 = new Enemy("Mr Man Guy", 30, 30, 6);
+	var enemy2 = new Enemy("Skeleton", 100, 100, 5);
+	var enemy3 = new Enemy("Tank", 150, 150, 20);
+	var enemy4 = new Enemy("Mr Man Guy", 100, 100, 10);
 	//WEAPONS
 	// var weapon1 = new Weapon("Wooden Stick", 1,2);
 	// var weapon2 = new Weapon("Wooden Sword", 4,5);
@@ -45,6 +45,7 @@ function battle() {
     document.getElementById("returnButton").style.display = "none";
     document.getElementById("battleButton").addEventListener("click", main); 
     document.getElementById("shopScreen").style.display = "none";
+    document.getElementById("battleButton").style.display = "block";
 
     var randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
     displayStats(player, randomEnemy);
@@ -59,17 +60,26 @@ function battle() {
             displayStats(player, randomEnemy);
             if (enemy.health < 1) {
                 document.getElementById("enemyHealthBar").style.display = "none";
+                document.getElementById("battleButton").style.display = "none";
                 document.getElementById("returnButton").style.display = "block";
                 displayStats(player, randomEnemy);
                 var x = setTimeout(deadEnemy, 10);
                 function deadEnemy() {
                     alert( randomEnemy.name + " has been defeated!");
                 }
-            } else if (player.health < 1) {
-                alert("U DEAD");
-            } else {
+            } else{
                 player.health -= enemy.damage;
                 displayStats(player, randomEnemy);
+                if (player.health < 1) {
+                    document.getElementById("enemyHealthBar").style.display = "none";
+                    document.getElementById("battleButton").style.display = "none";
+                    document.getElementById("returnButton").style.display = "block";
+                    displayStats(player, randomEnemy);
+                    var x = setTimeout(deadEnemy, 10);
+                    function deadEnemy() {
+                        alert(player.name + " has died like a little bitch!");
+                    }
+                }
             }
         }
         
