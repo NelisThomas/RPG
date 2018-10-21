@@ -61,7 +61,7 @@ function battle() {
                 document.getElementById("enemyHealthBar").style.display = "none";
                 document.getElementById("returnButton").style.display = "block";
                 displayStats(player, randomEnemy);
-                var x = setInterval(deadEnemy, 2000);
+                var x = setTimeout(deadEnemy, 10);
                 function deadEnemy() {
                     alert( randomEnemy.name + " has been defeated!");
                 }
