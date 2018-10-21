@@ -25,18 +25,15 @@ function Hero(name, health, maxHealth, damage, level, xp, armed, weapon) {
 
 
 
-
+//LISTENERS
 document.getElementById("newBattleButton").addEventListener("click", battle);
+document.getElementById("returnButton").addEventListener("click", returnShop);
 
 function battle() {
-	
-	//RESTRUCTURE FUNCTION SO THAT IT IS RECURRING AND YOU CAN EXIT PARTS OF THE FUNCTION 
-	
-		//CONSTRUCTORS
 	//PLAYER
 	var player = new Hero("John Doe", 100, 100, 10, 1, 0);
 	//ENEMIES
-	var enemy1 = new Enemy("Bandit", 75, 75, 8);
+	var enemy1 = new Enemy("Bandit", 100, 100, 11);
 	var enemy2 = new Enemy("Skeleton", 40, 40, 5);
 	var enemy3 = new Enemy("Tank", 150, 150, 5);
 	var enemy4 = new Enemy("Mr Man Guy", 30, 30, 6);
@@ -44,12 +41,15 @@ function battle() {
 	// var weapon1 = new Weapon("Wooden Stick", 1,2);
 	// var weapon2 = new Weapon("Wooden Sword", 4,5);
 	var enemies = [enemy1, enemy2, enemy3, enemy4];
-	
+
+    document.getElementById("returnButton").style.display = "none";
     document.getElementById("battleButton").addEventListener("click", main); 
     document.getElementById("shopScreen").style.display = "none";
+
     var randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
     displayStats(player, randomEnemy);
     xpCheck();
+
     function main() {
         attack(player, randomEnemy)
     }
@@ -58,8 +58,10 @@ function battle() {
             enemy.health -= player.damage;
             displayStats(player, randomEnemy);
             if (enemy.health < 1) {
-                document.getElementById("shopScreen").style.display = "block";
                 document.getElementById("enemyHealthBar").style.display = "none";
+                document.getElementById("returnButton").style.display = "block";
+                displayStats(player, randomEnemy);
+                alert(randomEnemy.name + " has been defeated.");
             } else if (player.health < 1) {
                 alert("U DEAD");
             } else {
@@ -101,3 +103,6 @@ function displayStats(player, enemy) {
     document.getElementById("enemyDamage").innerHTML = "Damage: " + enemy.damage;
 };
 
+function returnShop(){
+    document.getElementById("shopScreen").style.display = "block";
+};
