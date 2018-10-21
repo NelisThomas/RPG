@@ -65,16 +65,19 @@ function battle() {
                     console.log("function damageEnemy(player, enemy) started");
                     var dmg = player.damage;
                     var bar = document.getElementById("enemyHealthBar");
+                    var hp = document.getElementById("enemyHealth");
                     var startHealth = enemy.health;
                     var endHealth = enemy.health - player.damage;
-                    var x = setInterval(dmg, 500);
-                    function dmg(){
+                    var x = setTimeout(dealDamage, 500);
+                    function dealDamage() {
+                        console.log("function dealDamage() started");
                         while(enemy.health != endHealth){
                             if (enemy.health == endHealth){
                                 clearInterval(x);
-                            } else {
+                            } else {      //CONTINUE HERE
                                 enemy.health -= 1;
-                                bar.style.width = bar.style.width + 1;
+                                bar.style.width = bar.style.width - 1;
+                                bar.innerHTML("Health: " + enemy.health);
                             }
                         }   
                         // for (i = 0; i < dmg; i++){
@@ -83,13 +86,17 @@ function battle() {
                         //  enemy.health -= 1;
                         //  displayStats(player,randomEnemy);    
                         //  }
-                     }
-                     console.log("function damageEnemy(player, enemy) ended");
-                    }
-                    
+                        console.log("function dealDamage() ended");
+                    }   
+                        console.log("function damageEnemy() ended");
                 }
+            damageEnemy(player, randomEnemy);
+
+            
+                    
+            }
+            attack(player, randomEnemy);
                 // attack(player, randomEnemy);
-                // console.log("attack(player, randomEnemy) called");
                 displayStats(player, randomEnemy);
                 
                 var y = setTimeout(z, 800);
@@ -142,7 +149,6 @@ console.log("function battle() ended")
 
 
 function displayStats(player, enemy) {
-    console.log("function displayStats(player, enemy) started");
     //UPDATE PLAYER STATS
     document.getElementById("playerHeader").innerHTML = player.name + ":";
     document.getElementById("playerHealth").innerHTML = "Health: " + player.health + "/" + player.maxHealth;
