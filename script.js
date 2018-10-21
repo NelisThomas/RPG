@@ -58,7 +58,7 @@ function battle() {
         // if (enemy.health && player.health >= 0) {
             enemy.health -= player.damage;
             displayStats(player, randomEnemy);
-            var y = setTimeout(z, 500);
+            var y = setTimeout(z, 800);
                 function z(){
             if (enemy.health < 1) {
                 document.getElementById("enemyHealthBar").style.display = "none";
