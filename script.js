@@ -55,9 +55,11 @@ function battle() {
         attack(player, randomEnemy)
     }
     function attack (player, enemy) {
-        if (enemy.health && player.health >= 0) {
+        // if (enemy.health && player.health >= 0) {
             enemy.health -= player.damage;
             displayStats(player, randomEnemy);
+            var y = setTimeout(z, 500);
+                function z(){
             if (enemy.health < 1) {
                 document.getElementById("enemyHealthBar").style.display = "none";
                 document.getElementById("battleButton").style.display = "none";
@@ -68,20 +70,21 @@ function battle() {
                     alert( randomEnemy.name + " has been defeated!");
                 }
             } else{
-                player.health -= enemy.damage;
+                    player.health -= enemy.damage;
+                }
                 displayStats(player, randomEnemy);
                 if (player.health < 1) {
                     document.getElementById("enemyHealthBar").style.display = "none";
                     document.getElementById("battleButton").style.display = "none";
                     document.getElementById("returnButton").style.display = "block";
                     displayStats(player, randomEnemy);
-                    var x = setTimeout(deadEnemy, 10);
-                    function deadEnemy() {
+                    var x = setTimeout(deadPlayer, 10);
+                    function deadPlayer() {
                         alert(player.name + " has died like a little bitch!");
                     }
                 }
             }
-        }
+        //}
         
 
     }
