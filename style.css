@@ -16,14 +16,27 @@
     color: white;
     text-align:center;
 }
-.healthBar{
-    height: 50px;
-    background-color:rgb(217, 24, 24);
-    left:0;
-    -webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);
-    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);
+.healthBar {
+    margin-left: auto;
+    margin-right: auto;
+    height: 45px;
+    background-color: rgb(217, 24, 24);
+    /*-webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);*/
     border: 1px solid white;
+    border-radius:10px;
 }
+/*.healthContainer {
+    /*padding-top:2.5px;
+    height:47.5px;
+    width:100%;
+    height: 50px;
+
+    background-color: black;
+    left: 0;*/
+    /*-webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);*/
+/*}*/
 #PlayerXPBar{
     min-height: 100px;
     background-color:rgb(23, 80, 238);
@@ -51,6 +64,7 @@
     font-weight: bold;
     margin: 25px;
     height: auto;
+    padding: 20px;
 }
 #playerStats, #enemyStats{
     margin-left:10px;
