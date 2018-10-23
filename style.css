@@ -19,13 +19,20 @@
 .healthBar{
     height: 50px;
     background-color:rgb(217, 24, 24);
-    width:100%;
-    position:absolute;
-    bottom:0;
     left:0;
+    -webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);
+    border: 1px solid white;
+}
+#PlayerXPBar{
+    min-height: 100px;
+    background-color:rgb(23, 80, 238);
+    min-width:100px;
+    /* position:absolute; */
+    /* bottom:0;
+    left:0; */
 }
 #shopScreen{
-    display:block;
     height: 100%;
     width: 100%;
     position: fixed;
@@ -36,17 +43,20 @@
 }
 .container {
     position: relative;
-    width: 500px;
+    width: auto;
     background-color: rgb(12, 12, 12);
     color: white;
     font-family: Garamond,Baskerville,Baskerville Old Face,Hoefler Text,Times New Roman,serif;
     font-size:20px;
     font-weight: bold;
     margin: 25px;
-    height: 300px;
+    height: auto;
 }
 #playerStats, #enemyStats{
     margin-left:10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 #newBattleButton{
     height:50px;
@@ -61,11 +71,10 @@
     cursor: pointer;
     color: white;
     text-align: center;
-    display: none;
 }
 .visible{
-    display: block;
+    visibility: visible;
 }
 .invisible{
-    display: none;
+    visibility: hidden;
 }

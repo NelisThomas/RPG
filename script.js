@@ -29,123 +29,151 @@ var returnButton = document.getElementById("returnButton");
 var newBattleButton = document.getElementById("newBattleButton");
 var shopScreen = document.getElementById("shopScreen");
 //VARIABLES
+//LISTENERS
+newBattleButton.addEventListener("click", openBattleScreen);
+returnButton.addEventListener("click", returnShop);
+battleButton.addEventListener("click", (event)=>playerAttack(player, randomEnemy));
 
 // function Weapon(name, damage,durability) {
-    // this.name = name;
-    // this.damage = damage;
-    // this.durability = durability;
-    // }
-    
-    //PLAYER
-    let player = new Hero("John Doe", 100, 100, 25, 1, 0);
-    
-    //ENEMIES
-    let enemy1 = new Enemy("Bandit", 100, 100, 5);
-    let enemy2 = new Enemy("Skeleton", 100, 100, 5);
-    let enemy3 = new Enemy("Tank", 150, 150, 20);
-    let enemy4 = new Enemy("Mr Man Guy", 100, 100, 15);
-    //WEAPONS
-    // let weapon1 = new Weapon("Wooden Stick", 1,2);
-    // let weapon2 = new Weapon("Wooden Sword", 4,5);
-    let enemies = [enemy1, enemy2, enemy3, enemy4];
-    
+// this.name = name;
+// this.damage = damage;
+// this.durability = durability;
+// }
 
-//LISTENERS
-newBattleButton.addEventListener("click", battle);
-returnButton.addEventListener("click", returnShop);
+//PLAYER
+let player = new Hero("John Doe", 100, 100, 12, 1, 0);
 
+//ENEMIES
+let enemy1 = new Enemy("Bandit", 100, 100, 5);
+let enemy2 = new Enemy("Skeleton", 100, 100, 5);
+let enemy3 = new Enemy("Tank", 150, 150, 20);
+let enemy4 = new Enemy("Mr Man Guy", 100, 100, 15);
+//WEAPONS
+// let weapon1 = new Weapon("Wooden Stick", 1,2);
+// let weapon2 = new Weapon("Wooden Sword", 4,5);
+let enemies = [enemy1, enemy2, enemy3, enemy4];
+let randomEnemy = enemy1;
+
+//ON LOAD
+shopScreen.onload = selectRandomEnemy();
 
 
 //REFERENCED FUNCTIONS
-function visible(x){
-    x.classList.add("visible");
+function selectRandomEnemy(){
+    console.log ("selectRandomEnemy()");
+    let randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+}
+function visible(x) {
+    x.setAttribute("visible", x);
     x.classList.remove("invisible");
 }
-function invisible(x){
+function invisible(x) {
     x.classList.add("invisible");
     x.classList.remove("visible");
 }
-function damagePlayer(player, enemy) {  
+function damagePlayer(player, enemy) {
     console.log("function damagePlayer(player, enemy) started");
-    battleButton.style.display = "none";
-    let bar = playerHealthBar;
-    let hp = playerHealth;
-    let endHealth = player.health - enemy.damage;
-    
-    if (player.health > endHealth) {
-        let x = setInterval(dealDamage, 50);
-        function dealDamage() {
-            if (player.health == endHealth) {
-                clearInterval(x);
-                // canBattleButtonBeShown();
-            } else {
-                let playerHealthPercentage = (player.health / player.maxHealth) * 100;
-                bar.style.width = playerHealthPercentage + "%";
-                player.health -= 1;
-                bar.style.width = bar.style.width - 1;
-                hp.innerHTML = "Health: " + player.health;
-                if(player.health < 1){
-                    document.getElementById("playerHealthBar").style.display = "none";
-                    document.getElementById("battleButton").style.display = "none";
-                    document.getElementById("returnButton").style.display = "block";
-                    // displayStats(player, randomEnemy);
+    invisible(battleButton);
+    var x = checkAlive(enemy);
+    if (x === true){
+        let bar = playerHealthBar;
+        let hp = playerHealth;
+        let endHealth = player.health - enemy.damage;
 
-                    let y = setTimeout(deadPlayer, 10);
-                    function deadPlayer() {
-                    alert(player.name + " has perished to " + randomEnemy.name);
-                    // canBattleButtonBeShown();
+        if (player.health > endHealth) {
+            let x = setInterval(dealDamage, 50);
+            function dealDamage() {
+                if (player.health == endHealth) {
+                    clearInterval(x);
+                    visible(battleButton);
+                } else {
+                    let playerHealthPercentage = (player.health / player.maxHealth) * 100;
+                    bar.style.width = playerHealthPercentage + "%";
+                    player.health -= 1;
+                    bar.style.width = bar.style.width - 1;
+                    hp.innerHTML = "Health: " + player.health + "/" + player.maxHealth;
+                    if (player.health < 1) {
+                        invisible(playerHealthBar);
+                        invisible(battleButton);
+                        visible(returnButton);
+
+                        let y = setTimeout(deadPlayer, 10);
+                        function deadPlayer() {
+                            alert(player.name + " has perished to " + enemy.name);
+                        }
+                        }
                     }
                 }
             }
+        } else {
+            visible(returnButton);
         }
-    }
     console.log("function damagePlayer(player, enemy) ended");
 }
-// function canBattleButtonBeShown(enemy, player){
-//     console.log("function canBattleBeShown() started");
-//     if (enemy.health && player.health > 0){
-//         visible(battleButton);
-//     } else {
-//         invisible(battleButton);
-//     }
-// }
+function canBattleButtonBeShown(player, enemy) {
+    console.log("function canBattleBeShown() started");
+    if (enemy.health && player.health > 0) {
+        visible(battleButton);
+    }else {
+        invisible(battleButton);
+    }
+}
 function damageEnemy(player, enemy) {
     console.log("function damageEnemy(player, enemy) started");
-
+    invisible(battleButton);
     let bar = enemyHealthBar;
     let hp = enemyHealth;
     let endHealth = enemy.health - player.damage;
-    
+
     if (enemy.health > endHealth) {
         let x = setInterval(damageAnimation, 50);
         function damageAnimation() {
             if (enemy.health == endHealth) {
                 clearInterval(x);
-                // canBattleButtonBeShown();
-                if (enemy.health > 0){
-                    // let z = setTimeout(damagePlayer(player, enemy),1000);
-                }
             } else {
                 let enemyHealthPercentage = (enemy.health / enemy.maxHealth) * 100;
                 bar.style.width = enemyHealthPercentage + "%";
                 enemy.health -= 1;
                 bar.style.width = bar.style.width - 1;
-                hp.innerHTML = "Health: " + enemy.health;
-                if(enemy.health < 1){
+                hp.innerHTML = "Health: " + enemy.health + "/" + enemy.maxHealth;
+                if (enemy.health < 1) {
+                    clearInterval(x);
                     invisible(enemyHealthBar);
                     invisible(battleButton);
                     visible(returnButton);
-                    // displayStats(player, randomEnemy);
 
-                    let y = setTimeout(deadPlayer, 10);
-                    function deadPlayer() {
-                    alert(player.name + " has defeated " + enemy.name);
+                    let y = setTimeout(deadEnemy, 10);
+                    function deadEnemy() {
+                        alert(player.name + " has defeated " + enemy.name);
+                        visible(returnButton);
                     }
                 }
             }
         }
     } else {
         
+    }
+    xpIncrement(player.damage);
+    xpCheck();
+}
+function xpIncrement(amount){
+    let x = setInterval(xpDisplay, 50)
+    let endXP = player.xp + amount;
+    function xpDisplay(){
+        if (player.xp == endXP){
+            clearInterval(x);
+        } else {
+            player.xp++;
+            playerXP.innerHTML = "XP: " + player.xp;
+        }
+    }
+}
+function xpCheck(){
+    if (player.xp >= 100){
+        player.xp = "0";
+        player.level += 1;
+    } else {
+
     }
 }
 function displayStats(player, enemy) {
@@ -159,52 +187,45 @@ function displayStats(player, enemy) {
     playerLevel.innerHTML = "Level " + player.level;
     //UPDATE ENEMY STATS
     enemyHeader.innerHTML = enemy.name + ":";
-    enemyHealth.innerHTML = "Health: " + enemy.health;
+    enemyHealth.innerHTML = "Health: " + enemy.health + "/" + enemy.maxHealth;
     //ENEMY HEALTHBAR
     let enemyHealthPercentage = (enemy.health / enemy.maxHealth) * 100;
     enemyHealthBar.style.width = enemyHealthPercentage + "%";
-    enemyHealthBar.style.display = "block";
+    visible(enemyHealthBar);
     enemyDamage.innerHTML = "Damage: " + enemy.damage;
 }
 function returnShop() {
-    shopScreen.style.display = "block";
+    visible(shopScreen);
 }
-function refresh(player, enemy){
+function refresh(player, enemy) {
     player.health = player.maxHealth;
     enemy.health = enemy.maxHealth;
     displayStats(player, enemy);
 }
-
-
-//MAIN FUNCTION
-function battle() {
-    let randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
-    battleButton.addEventListener("click",launcher);
-    function launcher(){
-        damageEnemy(player, randomEnemy);
-        if (randomEnemy.health > 0){
-            damagePlayer(player, randomEnemy);
-        }
+function checkAlive(x){
+    if (x.health > 0) {
+       return true;
+    } else {
+        return false;
     }
+}
+function openBattleScreen() {
+    console.log("openBattleScreen()");
     refresh(player, randomEnemy);
-
-    console.log("function battle() started");
-    returnButton.style.display = "none";
-    shopScreen.style.display = "none";
-    battleButton.style.display = "block";
     invisible(returnButton);
     invisible(shopScreen);
     visible(battleButton);
-
-    // displayStats(player, randomEnemy);
-    
-    
-    
-    
-    
-    
-    console.log("function battle() ended");
-};
-
-
-
+}
+function playerAttack(player, enemy) {
+    console.log("function playerAttack() started")
+    damageEnemy(player, enemy);
+    var x = checkAlive(enemy);
+    if (x === true){
+        var y = setTimeout(damagePlayer, 1500, player, randomEnemy);
+        } else {
+        visible(returnButton);
+    }
+    // xpIncrement(player.damage);
+    // xpCheck();
+    console.log("function playerAttack() started");
+}
