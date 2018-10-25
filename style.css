@@ -1,6 +1,7 @@
 #battleScreen {
     z-index: 0;
-    background-color: rgb(74, 74, 74);
+    background-image: url("assets/images/backgrounds/battlebackground.jpg");
+    background-size: cover;
     height:100vh;
     width:100%;
     top:0;
@@ -9,34 +10,40 @@
 }
 
 #battleButton{
-    width: 100px;
-    height: 45px;
-    background-color: rgb(7, 154, 239);
+    width: 100%;
+    height: 50px;
+    background-color: rgb(180, 12, 12);
     cursor: pointer;
     color: white;
-    text-align:center;
+    border-radius: 15px;
+    border: 2px solid white;
+    margin-top: 330px;
 }
-.healthBar {
+#battleButton.p{
     margin-left: auto;
     margin-right: auto;
+}
+.healthBar {
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
     height: 45px;
-    background-color: rgb(217, 24, 24);
-    /*-webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);
-    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);*/
-    border: 1px solid white;
+    /* background-color: rgb(237, 56, 56); */
+    background: -webkit-linear-gradient(top, rgba(248,80,50,1) 0%,rgba(241,111,92,1) 0%,rgba(246,41,12,1) 59%,rgba(246,41,12,1) 59%,rgba(240,47,23,1) 88%,rgba(229,33,16,1) 93%); 
+    /* -webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0); */
+    border: 2px solid rgb(180, 12, 12);
     border-radius:10px;
 }
-/*.healthContainer {
-    /*padding-top:2.5px;
-    height:47.5px;
-    width:100%;
-    height: 50px;
-
-    background-color: black;
-    left: 0;*/
-    /*-webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);
-    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 40%, 95% 0);*/
-/*}*/
+.healthBarContainer {
+    /* display: flex;
+    justify-content: center; */
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    bottom: 10px;
+    width: 350px;
+}
 #PlayerXPBar{
     min-height: 100px;
     background-color:rgb(23, 80, 238);
@@ -49,46 +56,131 @@
     height: 100%;
     width: 100%;
     position: fixed;
-    background-color: rgb(7, 52, 78);
+    background-image: url("assets/images/backgrounds/tavern.jpg");
+    background-size: cover;
     z-index: 1;
     top: 0;
     left: 0;
 }
 .container {
     position: relative;
-    width: auto;
-    background-color: rgb(12, 12, 12);
-    color: white;
+    /* background-color: rgba(2, 0, 105, 0.85); */
+    background: -webkit-linear-gradient(top, rgb(86, 157, 190) 0%,rgb(39, 129, 170) 100%);
+    color: rgb(11, 39, 116);
     font-family: Garamond,Baskerville,Baskerville Old Face,Hoefler Text,Times New Roman,serif;
-    font-size:20px;
+    font-size:18px;
     font-weight: bold;
     margin: 25px;
-    height: auto;
-    padding: 20px;
+    height: 250px;
+    width: 500px;
+        
+    line-height: 10%;
 }
 #playerStats, #enemyStats{
-    margin-left:10px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
 }
-#newBattleButton{
-    height:50px;
-    width:100px;
-    background-color:blue;
-    color: white;
+.statsContainer{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+#playerStats, #enemyStats{
+    margin-left:10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#enemyStatsContainer{
+    /* float: right;    */
+    -webkit-clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+    clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+}
+.healthBarContainerContainer{
+    display: flex;
+    justify-content: center;
+}
+#playerStatsContainer{
+    /* float: left; */
+    -webkit-clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+}
+#enemyStatsContainer, #playerStatsContainer{
+    margin-left: auto;
+    margin-right: auto;
+}
+#playerSpriteContainer{
+    float: left;
+    margin-left: 10px;
+    margin-bottom: 2px;
+}
+#enemySpriteContainer{
+    float: right;
+    margin-right: 10px;
+    margin-bottom: 2px;
+}
+#enemySprite{
+   transform: rotateY(180deg);
+   right: 25px;
+}
+#enemySprite, #playerSprite{
+    position: absolute;
+    height: 250px;
+}
+.bottomContainer{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.buttonContainer div{
+    display: inline-flex;
+    /* width: 100px;
+    height: 45px; */
 }
 #returnButton {
-    width: 100px;
-    height: 45px;
+    width: 100%;
     background-color: darkred;
     cursor: pointer;
     color: white;
     text-align: center;
 }
+
+#newBattleButton{
+    position: relative;
+    float:right;
+    height: 500px;
+    width:230px;
+    background-image: rgba(4, 4, 4, 0);
+    margin-right: 90px;
+    margin-top: 150px;
+    text-align: center;
+    color: white;
+}
+#newBattleButton.p{
+}
+#newBattleButton:hover{
+background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,0,0.75) 0%, rgba(255,255,0,0.42) 28%, rgba(255,255,0,0) 62%, rgba(255,255,0,0) 100%); /* ff3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255,255,0,0.75)), color-stop(28%, rgba(255,255,0,0.42)), color-stop(62%, rgba(255,255,0,0)), color-stop(100%, rgba(255,255,0,0))); /* safari4+,chrome */
+background:-webkit-radial-gradient(center, ellipse cover, rgba(255,255,0,0.75) 0%, rgba(255,255,0,0.42) 28%, rgba(255,255,0,0) 62%, rgba(255,255,0,0) 100%); /* safari5.1+,chrome10+ */
+background: -o-radial-gradient(center, ellipse cover, rgba(255,255,0,0.75) 0%, rgba(255,255,0,0.42) 28%, rgba(255,255,0,0) 62%, rgba(255,255,0,0) 100%); /* opera 11.10+ */
+background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,0,0.75) 0%, rgba(255,255,0,0.42) 28%, rgba(255,255,0,0) 62%, rgba(255,255,0,0) 100%); /* ie10+ */
+background:radial-gradient(ellipse at center, rgba(255,255,0,0.75) 0%, rgba(255,255,0,0.42) 28%, rgba(255,255,0,0) 62%, rgba(255,255,0,0) 100%); /* w3c */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff00', endColorstr='#ffff00',GradientType=1 ); /* ie6-9 */
+}
 .visible{
-    visibility: visible;
+     visibility: visible; 
+    /* display: block; */
 }
 .invisible{
-    visibility: hidden;
+     visibility: hidden; 
+    /* display: none; */
+}
+.shopItemsContainer{
+    display: flex;
+    height:500px;
+    width:500px;
+    background-color:rgba(138, 137, 90, 0.6);
+    color: white;
+    margin: auto;
+    position:absolute;
 }

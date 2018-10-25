@@ -6,45 +6,64 @@
     <title></title>
 </head>
 <body>
-    <div style="position:relative;">
         <div id="shopScreen">
-            <div id="newBattleButton">NEW BATTLE</div>
+            <div class="shopItemsContainer">
+                <div id="buttonFullHP" class="shopItem">FULL HP</div>
+            </div>
+            <div id="newBattleButton"> 
+                <p>BATTLE</p>
+            </div>
         </div>
         <div id="battleScreen">
 
-            <div style="display:grid; grid-template-columns: 1fr 1fr">
-                <div class="container">
-                    <div id="playerStats">
-                        <p id="playerHeader"></p>
-                        <p id="playerName"></p>
-                        <p id="playerHealth"></p>
-                        <p id="playerDamage"></p>
-                        <p id="playerXP"></p>
-                        <p id="playerLevel"></p>
+                <div class="statsContainer" > 
+                    <div class="container" id="playerStatsContainer">
+                        <div id="playerStats">
+                            <p id="playerName"></p>
+                            <p id="playerHealth"></p>
+                            <p id="playerDamage"></p>
+                            <p id="playerXP"></p>
+                            <p id="playerLevel"></p>
+                        </div>
+                        <div class="healthBarContainerContainer">
+                            <div class="healthBarContainer">
+                                <div class="healthBar" id="playerHealthBar"></div>
+                            </div> 
+                        </div>
+                        <div id="playerXPBar"></div>
                     </div>
-                    <!--<div class="healthContainer">-->
-                        <div class="healthBar" id="playerHealthBar"></div>
-                    <!--</div>-->
-                    <div id="playerXPBar"></div>
-                </div>
+                    <div class="buttonContainer">
+                        <div id="battleButton">
+                            <p>ATTACK</p>
+                        </div>
+                        <div id="returnButton">RETURN TO SHOP</div>
+                    </div>  
+                    <div class="container" id="enemyStatsContainer">
+                        <div id="enemyStats">
+                            <p id="enemyHeader"></p>
+                            <p id="enemyName"></p>
+                            <p id="enemyHealth"></p>
+                            <p id="enemyDamage"></p>
+                        </div>
+                        <div class="healthBarContainerContainer">
+                            <div class="healthBarContainer">    
+                                <div class="healthBar" id="enemyHealthBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="bottomContainer">        
+                    <!-- <div class="spriteContainer"> -->
+                        <img id="playerSprite" src="assets/images/knight/png/Idle1.png">
+                    <!-- </div>
+                    <div class="spriteContainer"> -->
+                        <img id="enemySprite" src="assets/images/zombies/male/Idle1.png">
+                    <!-- </div> -->
+                </div> 
 
-                <div class="container">
-                    <div id="enemyStats">
-                        <p id="enemyHeader"></p>
-                        <p id="enemyName"></p>
-                        <p id="enemyHealth"></p>
-                        <p id="enemyDamage"></p>
-                    </div>
-                    <!--<div class="healthContainer">-->
-                        <div class="healthBar" id="enemyHealthBar"></div>
-                    <!--</div>-->
-                    </div>
-                </div>
-
-        <div id="battleButton">FIGHT</div>
-        <div id="returnButton">RETURN TO SHOP</div>
+                
+                
         </div>
-    </div>
     
     
     <script src="script.js"></script>
