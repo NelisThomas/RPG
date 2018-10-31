@@ -19,11 +19,17 @@ function Hero(name, health, maxHealth, damage, level, xp, imageLocation) {
 }
 //PLAYER
 let player = new Hero("John Doe", 100, 100, 50, 1, 0, "assets/images/ninja/");
+// let hero1 = new Hero("John Doe", 100, 100, 50, 1, 0, "assets/images/ninja/");
+// let hero2 = new Hero("John Doe", 100, 100, 50, 1, 0, "assets/images/ninja/");
+// PLAYER ARRAYS
+let heroes = [
+
+]
 
 //ENEMIES
-let enemy1 = new Enemy("Zombie Dude", 100, 100, 5, "assets/images/zombies/male/");
-let enemy2 = new Enemy("Zombie Lady", 100, 100, 5, "assets/images/zombies/female/");
-let enemy3 = new Enemy("Knight", 150, 150, 20, "assets/images/knight/png/");
+let enemy1 = new Enemy("Zombie Dude", 100, 100, 25, "assets/images/zombies/male/");
+let enemy2 = new Enemy("Zombie Lady", 100, 100, 25, "assets/images/zombies/female/");
+let enemy3 = new Enemy("Knight", 150, 150, 30, "assets/images/knight/png/");
 //WEAPONS
 // let weapon1 = new Weapon("Wooden Stick", 1,2);
 // let weapon2 = new Weapon("Wooden Sword", 4,5);
@@ -90,8 +96,9 @@ newBattleButton.addEventListener("click", openBattleScreen);
 returnButton.addEventListener("click", returnShop);
 battleButton.addEventListener("click", (event)=>playerAttack(player, randomEnemy));
 playerName.addEventListener("click", (event)=>changeValue(player, name, "Enter your name", true ));
-playerDamage.addEventListener("click", (event)=>changeValue(player, damage, "Enter your damage", false ));
+// SHOP BUTTONS
 document.getElementById("buttonFullHP").addEventListener("click", (event)=>refresh(player));
+document.getElementById("smallHPPotion").addEventListener("click", (event)=>smallHPPotion(player));
 // function Weapon(name, damage,durability) {
 // this.name = name;
 // this.damage = damage;
@@ -110,7 +117,9 @@ shopScreen.onload = selectRandomEnemy();
 //     player.name = prompt("Enter your name","John Doe");
 //     playerName.innerHTML = player.name + ":";
 // }
-
+function smallHPPotion(char){
+    char.health += Math.ceil(char.health / 4);
+}
 function isAnyPartOfElementInViewport(element) {
 
     const rect = element.getBoundingClientRect();
@@ -180,7 +189,13 @@ function xpIncrement(amount){
     function xpDisplay(){
         if (player.xp == endXP){
             clearInterval(x);
-            xpCheck();
+            if (player.xp >= 100){
+                player.xp -= 100;
+                playerXP.innerHTML = "XP: " + player.xp;
+                player.level += 1;
+                playerLevel.innerHTML = "Level: " + player.level;
+                clearInterval(x);
+            }
         } else {
             player.xp++;
             playerXP.innerHTML = "XP: " + player.xp;
@@ -195,17 +210,17 @@ function displayStats(player, enemy) {
     let playerHealthPercentage = (player.health / player.maxHealth) * 100;
     playerHealthBar.style.width = playerHealthPercentage + "%";
     visible(playerHealthBar);
-    playerDamage.innerHTML = "Damage: " + player.damage;
+    // playerDamage.innerHTML = "Damage: " + player.damage;
     playerXP.innerHTML = "XP: " + player.xp;
     playerLevel.innerHTML = "Level " + player.level;
     //UPDATE ENEMY STATS
-    enemyHeader.innerHTML = enemy.name + ":";
+    enemyName.innerHTML = enemy.name + ":";
     enemyHealth.innerHTML = "Health: " + enemy.health + "/" + enemy.maxHealth;
     //ENEMY HEALTHBAR
     let enemyHealthPercentage = (enemy.health / enemy.maxHealth) * 100;
     enemyHealthBar.style.width = enemyHealthPercentage + "%";
     visible(enemyHealthBar);
-    enemyDamage.innerHTML = "Damage: " + enemy.damage;
+    // enemyDamage.innerHTML = "Damage: " + enemy.damage;
 }
 function returnShop() {
     visible(shopScreen);
@@ -233,14 +248,14 @@ function lastFrame(array, xsprite, character){
 function enemyMove(enemy){
     console.log("enemyMove()");
     var pos = 0;
-    var x = setInterval(y, 5);
+    var x = setInterval(y, 50);
     function y(){
         if (isAnyPartOfElementInViewport(enemySprite)){
             pos++;
-            enemySprite.style.right = pos + "px";
+            enemySprite.style.marginRight = pos + "%";
         } else {
             clearInterval(x);
-            enemySprite.style.right = 25 + "px";
+            enemySprite.style.marginRight = 25 + "%";
             invisible(enemySprite);
         }
     }
@@ -248,14 +263,14 @@ function enemyMove(enemy){
 function playerMove(player){
     console.log("playerMove()");
     var pos = 0;
-    var x = setInterval(y, 5);
+    var x = setInterval(y, 50);
     function y(){
         if (isAnyPartOfElementInViewport(playerSprite)){
             pos++;
-            playerSprite.style.left = pos + "px";
+            playerSprite.style.marginLeft = pos + "%";
         } else {
             clearInterval(x);
-            playerSprite.style.left = 25 + "px";
+            playerSprite.style.marginLeft = 25 + "%";
             invisible(playerSprite);
         }
     }
@@ -297,6 +312,13 @@ function playerAnimation(array, player){
     }
     resetImg(playerSprite, player);
 }
+function loopPlayerAnimationUntilNotVisible(array, element, player){
+    if (isAnyPartOfElementInViewport(element) == true){
+
+    } else {
+        
+    }
+}
 //CALLED FUNCTIONS THAT CALL OTHER FUNCTIONS WITHIN
 
 function damageEnemy(player, enemy) {
@@ -310,50 +332,51 @@ function damageEnemy(player, enemy) {
     
         let x = setInterval(damageAnimation, 50);
         function damageAnimation() {
-            if (enemy.health == endHealth) {
-                clearInterval(x);
-                bar.style.backgroundColor = "rgb(237, 50, 50)";
-                if (enemy.health > 0){
-                    var y = setTimeout(z, 500)
-                    function z(){
-                        damagePlayer(player, enemy);
-                    }
-                }
-            } else {
-                let enemyHealthPercentage = (enemy.health / enemy.maxHealth) * 100;
-                bar.style.width = enemyHealthPercentage + "%";
-                enemy.health -= 1;
-                bar.style.width = bar.style.width - 1;
-                bar.style.backgroundColor = "rgb(237, 56, 56)";
-                hp.innerHTML = "Health: " + enemy.health + "/" + enemy.maxHealth;
-                if (enemy.health < 1) {
+            
+                if (enemy.health == endHealth) {
                     clearInterval(x);
-                    invisible(enemyHealthBar);
-                    invisible(battleButton);
-                    visible(returnButton);
-                    enemyAnimation(deadArray, randomEnemy);
-                    playerMove(player);
-                    xpIncrement(75);
-                    let hey = setInterval(aaa, 500)
-                        var i=0;
-                        function aaa(){
-                            if (i<12){
-                                playerAnimation(walkArray, player);
-                                i++;
-                            } else {
-                                clearInterval(hey);
-                                lastFrame(deadArray, enemySprite, enemy);
-                            }
-                        
+                    bar.style.backgroundColor = "rgb(237, 50, 50)";
+                    if (enemy.health > 0){
+                        var y = setTimeout(z, 500)
+                        function z(){
+                            damagePlayer(player, enemy);
                         }
-
-                    let y = setTimeout(deadEnemy, 10);
-                    function deadEnemy() {
-                        // alert(player.name + " has defeated " + enemy.name);
+                    }
+                } else {
+                    let enemyHealthPercentage = (enemy.health / enemy.maxHealth) * 100;
+                    bar.style.width = enemyHealthPercentage + "%";
+                    enemy.health -= 1;
+                    bar.style.width = bar.style.width - 1;
+                    bar.style.backgroundColor = "rgb(237, 56, 56)";
+                    hp.innerHTML = "Health: " + enemy.health + "/" + enemy.maxHealth;
+                    if (enemy.health < 1) {
+                        clearInterval(x);
+                        invisible(enemyHealthBar);
+                        invisible(battleButton);
                         visible(returnButton);
+                        enemyAnimation(deadArray, randomEnemy);
+                        playerMove(player);
+                        xpIncrement(75);
+                        let hey = setInterval(aaa, 500)
+                            var i=0;
+                            function aaa(){
+                                if (i<12){
+                                    playerAnimation(walkArray, player);
+                                    i++;
+                                } else {
+                                    clearInterval(hey);
+                                    lastFrame(deadArray, enemySprite, enemy);
+                                }
+                            
+                            }
+
+                        let y = setTimeout(deadEnemy, 10);
+                        function deadEnemy() {
+                            // alert(player.name + " has defeated " + enemy.name);
+                            visible(returnButton);
+                        }
                     }
                 }
-            }
         }
 
     xpIncrement(20);
