@@ -1,0 +1,11 @@
+body {
+    z-index: 0;
+    background-image: url("assets/images/backgrounds/battlebackground.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height:100vh;
+    width:100%;
+    top:0;
+    left: 0;
+    position: fixed;
+}

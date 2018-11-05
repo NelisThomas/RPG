@@ -2,104 +2,24 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
     <title></title>
 </head>
 <body>
-        <div id="shopScreen">
-            <div class="shopContainer">
-                <h1>Shop</h1>
-                <div class="shopItemsContainer">
-                    
-                    <div id="buttonFullHP" class="shopItem">
-                        <p>Big HP Potion</p>
-                        <p id="fullHPPrice">50</p>
-                    </div>
-                    <div id="smallHPPotion" class="shopItem">
-                            <p>Small HP Potion<p>
-                            <p id="fullHPPrice">50</p>
-                    </div>
-                    <div id="buttonFullHP" class="shopItem">
-                            <p>Restore Health</p>
-                            <p id="fullHPPrice">50</p>
-                    </div>
-                    <div id="buttonFullHP" class="shopItem">
-                            <p>Restore Health</p>
-                            <p id="fullHPPrice">50</p>
-                    </div>
-                    <div id="buttonFullHP" class="shopItem">
-                            <p>Restore Health</p>
-                            <p id="fullHPPrice">50</p>
-                    </div>
-                </div>
-            </div>
-            <div id="newBattleButton"> 
-                <p>BATTLE</p>
-            </div>
+    <div class="formContainer">
+        <h1>Welcome!</h1>
+        <p>Enter your hero's name:</p>
+        <input id="nameInput" onfocus="this.value=''">
+        <button id="submitButton" type="button">Submit</button>
+        <p>Select your gender</p>
+        <div id="genderContainer">
+            <div id="maleButton" class="genderButton"></div>
+            <div id="femaleButton" class="genderButton"></div>
         </div>
-        <div id="battleScreen">
-
-                <div class="statsContainer" > 
-                    <div class="container" id="playerStatsContainer">
-                        <div id="playerStats">
-                            <p id="playerName"></p>
-                            <p id="playerHealth"></p>
-                            <p id="playerXP"></p>
-                            <p id="playerLevel"></p>
-                        </div>
-                        <div class="healthBarContainerContainer">
-                            <div class="healthBarContainer">
-                                <div class="healthBar" id="playerHealthBar">
-                                </div>
-                            </div> 
-                        </div>
-                        <div id="playerXPBar"></div>
-                    </div>
-                    <div class="container" id="enemyStatsContainer">
-                        <div id="enemyStats">
-                            <p id="enemyName"></p>
-                            <p id="enemyHealth"></p>
-                            <p id="enemyHeader"></p>
-                        </div>
-                        <div class="healthBarContainerContainer">
-                            <div class="healthBarContainer">    
-                                <div class="healthBar" id="enemyHealthBar"> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    
-            <div id="battleButton">BATTLE</div>
-            <div id="returnButton">RETURN TO SHOP</div>
-                          
-                    <div class="bottomContainer">
-                    <!-- <div class="spriteContainer"> -->
-                        <img id="playerSprite" src="assets/images/knight/png/Idle1.png">
-                    <!-- </div>
-                    <div class="spriteContainer"> -->
-                        <img id="enemySprite" src="assets/images/zombies/male/Idle1.png">
-                    <!-- </div> -->
-                    </div>
-
-                
-                
-        </div>
-        <div id="welcomeScreen">
-            <div class="formContainer">
-                <div class="formContainerRow">
-                    <!-- ENTER YOUR NAME -->
-                </div>
-                <div class="formContainerRow">
-                    <!-- SELECT CLASS -->
-                </div>
-                <div class="formContainerRow">
-                    <!-- SELECT GENDER -->
-                </div>
-            </div>
-        </div>
+    </div>
+       
     
     
-    <script src="script.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

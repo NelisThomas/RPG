@@ -1,0 +1,36 @@
+body {
+    background-color: darkcyan;
+    height: 100%;
+}
+.formContainer{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    background-color: cadetblue;
+    text-align: center;
+    width: 60%;
+    padding: 5%;
+
+}
+#genderContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 20vh;
+}
+.genderButton{
+    width: 30%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#maleButton{
+    background-image: url(assets/images/ninja/Idle5.png)
+}
+#femaleButton{
+    background-image: url(assets/images/ninja/female/Idle5.png)
+}
+.selected{
+    border: 5px solid gold;
+}
