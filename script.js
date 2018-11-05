@@ -22,7 +22,6 @@ function Hero(name, health, maxHealth, damage, level, xp, imageLocation) {
 let player = new Hero(localStorage.getItem("userName"), 100, 100, 30, 1, 0, localStorage.getItem("gender"));
 // let hero1 = new Hero("John Doe", 100, 100, 50, 1, 0, "assets/images/ninja/");
 // let hero2 = new Hero("John Doe", 100, 100, 50, 1, 0, "assets/images/ninja/");
-// PLAYER ARRAYS
 
 
 //ENEMIES
@@ -94,14 +93,6 @@ let walkArray = [
 returnButton.addEventListener("click", returnShop);
 battleButton.addEventListener("click", (event)=>playerAttack(player, randomEnemy));
 playerName.addEventListener("click", (event)=>changeValue(player, name, "Enter your name", true ));
-
-
-
-
-
-
-
-
 
 //REFERENCED FUNCTIONS
 function isntNull(x){

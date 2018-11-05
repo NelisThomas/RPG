@@ -3,34 +3,42 @@ body {
     height: 100%;
 }
 .formContainer{
+    align-items: center;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 5%;
+    margin-top: 2%;
     background-color: cadetblue;
     text-align: center;
     width: 60%;
-    padding: 5%;
-
+    padding: 1%;
 }
-#genderContainer{
+.bottomContainer{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    height: 20vh;
+    justify-content: space-between; 
+    position: absolute;
+    height: 50vh;
+    bottom: 0; 
+    width: 95%;
+    margin-top: 5%;
 }
 .genderButton{
-    width: 30%;
-    height: 100%;
+    width: 100%;
+    height: 50%;
     background-repeat: no-repeat;
     background-size: cover;
 }
-#maleButton{
-    background-image: url(assets/images/ninja/Idle5.png)
+#maleButton, #femaleButton{
+    position: absolute;  
+    height: 100%;
+    /* bottom: 0px; */
 }
 #femaleButton{
-    background-image: url(assets/images/ninja/female/Idle5.png)
-}
+    transform: rotateY(180deg);
+    right: 5%;
+ }
+ #maleButton{
+    left: 5%;
+ }
 .selected{
     border: 5px solid gold;
 }
