@@ -1,5 +1,5 @@
 body {
-    background-color: darkcyan;
+    background-image: url("assets/images/backgrounds/stone.jpg");
     height: 100%;
 }
 .formContainer{
@@ -7,10 +7,11 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 2%;
-    background-color: cadetblue;
+    background-color: #7fb9e0e0;
     text-align: center;
-    width: 60%;
+    width: 25%;
     padding: 1%;
+    border-radius: 5px;
 }
 .bottomContainer{
     display: flex;

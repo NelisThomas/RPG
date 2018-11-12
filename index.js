@@ -34,11 +34,6 @@ document.getElementById("maleButton").addEventListener("click", setGenderMale);
 document.getElementById("femaleButton").addEventListener("click", setGenderFemale);
 
 
-// maleButton.addEventListener("click", (event) => highlight(maleButton));
-// femaleButton.addEventListener("click", (event) => highlight(femaleButton));
-// function highlight(element){
-//     element.classList.add("selected")
-// }
 function isAnyPartOfElementInViewport(element) {
 
     // Credit to StokeMasterJack for this function https://gist.github.com/davidtheclark/5515733
@@ -55,22 +50,29 @@ function isAnyPartOfElementInViewport(element) {
 
     return (vertInView && horInView);
 }
-function submitButton(){
-    if (/^[a-zA-Z]+$/.test(x)){
-        userName = x;
-        localStorage.setItem("userName", userName);
-        
-    } else {
-        alert("Invalid name, please try again");
+function capitalise(){
+    var y = userName.split("");
+    if (y[0] !== y[0].toUpperCase()){
+        y[0] = y[0].toUpperCase();
     }
+    for (i=1; i<y.length;i++){
+        if (y[i]===y[i].toUpperCase()){
+            y[i] = y[i].toLowerCase();
+        }
+    }
+    x = y.join("");
+    userName = x;
 }
+
 function setGenderMale(){
+    sessionStorage.clear();
     var x = document.getElementById("nameInput").value;
     if (/^[a-zA-Z]+$/.test(x)){
         userName = x;
-        localStorage.setItem("userName", userName);
+        capitalise();
+        sessionStorage.setItem("userName", userName);
         document.getElementById("maleButton").removeEventListener("click", setGenderMale); 
-        localStorage.setItem("gender", "assets/images/ninja/");
+        sessionStorage.setItem("gender", "assets/images/ninja/");
         playerAnimation(deadArray, document.getElementById("femaleButton"), "assets/images/ninja/female/");
         playerLoop(climbArray, 
             document.getElementById("maleButton"),
@@ -82,12 +84,14 @@ function setGenderMale(){
     
 };
 function setGenderFemale(){
+    sessionStorage.clear();
     var x = document.getElementById("nameInput").value;
     if (/^[a-zA-Z]+$/.test(x)){
         userName = x;
-        localStorage.setItem("userName", userName);
+        capitalise();
+        sessionStorage.setItem("userName", userName);
         document.getElementById("femaleButton").removeEventListener("click", setGenderFemale); 
-        localStorage.setItem("gender", "assets/images/ninja/female/");
+        sessionStorage.setItem("gender", "assets/images/ninja/female/");
         playerAnimation(deadArray, document.getElementById("maleButton"), "assets/images/ninja/");
         playerLoop(climbArray, 
             document.getElementById("femaleButton"),
@@ -118,7 +122,7 @@ function playerLoop(array, button, imgLocation, direction){
 }
 function moveUp(elemToMove){
     var pos = 0;
-    var x = setInterval(y, 30);
+    var x = setInterval(y, 25);
     function y(){
         if (isAnyPartOfElementInViewport(elemToMove)){
             pos++;

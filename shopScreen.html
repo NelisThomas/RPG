@@ -5,41 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="shopScreen.css" />
 </head>
 <body>
-        <div id="shopScreen">
-                <div class="shopContainer">
-                    <h1>Shop</h1>
-                    <div class="shopItemsContainer">
-                        <!-- FIRST ROW -->
-                        <div id="buttonFullHP" class="shopItem">
-                            <p>Big HP Potion</p>
-                            <div id="bigHPPotion" class="itemImage"></div>
-                            <p id="fullHPPrice">50</p>
-                        </div>
-                        <div id="smallHPPotion" class="shopItem">
-                                <p>Small HP Potion<p>
-                                <p id="smallHPPrice">50</p>
-                        </div>
-                        <div id="buttonFullHP" class="shopItem">
-                                <p>Restore Health</p>
-                                <p id="fullHPPrice">50</p>
-                        </div>
-                        <div id="buttonFullHP" class="shopItem">
-                                <p>Restore Health</p>
-                                <p id="fullHPPrice">50</p>
-                        </div>
-                        <div id="buttonFullHP" class="shopItem">
-                                <p>Restore Health</p>
-                                <p id="fullHPPrice">50</p>
-                        </div>
-                    </div>
+<div class="flexContainer">
+        <div class="shopContainer">
+                <div class="shopItems">
+                        <div id="smallHPPotion" class="shopItem" type="button"></div>
+                        <div id="bigHPPotion" class="shopItem" type="button"></div>
+                        <div id="incMaxHP" class="shopItem" type="button"></div>
+                        <div id="incDamage" class="shopItem" type="button"></div>
                 </div>
-                <div id="newBattleButton"> 
-                    <p>BATTLE</p>
+                <div class="playerInfoContainer">
+                        <div class="healthbarContainer">
+                                <div id="healthbar">
+                                </div>
+                        </div>
+                        <div class="playerStats">
+                                <p id="playerDamage"></p>
+                                <p id="playerMoney"></p>
+                        </div>
                 </div>
         </div>
-        <script src="shopScreen.js"></script>
+        <div class="eventContainer textBackground1">
+                <div id="eventTextContainer">
+                        
+                </div>
+                <div class="eventButtonContainer">
+                        <input type="button" class="eventButton" id="attackButton">
+                </div>
+        </div>
+</div>
+
+
+<script src="shopScreen.js"></script>
 </body>
 </html>

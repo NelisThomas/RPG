@@ -5,48 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="battlescreen.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
     
-    <div class="statsContainer" > 
-        <div class="container" id="playerStatsContainer">
-            <div id="playerStats">
-                <p id="playerName"></p>
-                <p id="playerHealth"></p>
-                <p id="playerXP"></p>
-                <p id="playerLevel"></p>
-            </div>
+    <div class="statsContainer">
+        <div id="playerStats" class="textBackground1">
+            <p id="playerName"></p>
             <div class="healthBarContainer">
                 <div class="healthBar" id="playerHealthBar">
                 </div>
             </div> 
-        <div id="playerXPBar"></div>
-    </div>
-    <div class="container" id="enemyStatsContainer">
-        <div id="enemyStats">
-            <p id="enemyName"></p>
-            <p id="enemyHealth"></p>
-            <p id="enemyHeader"></p>
-        </div>
-            <div class="healthBarContainer">    
-                <div class="healthBar" id="enemyHealthBar"> 
-                </div>
+            <div class="sixGrid">
+                <p id="playerHealth"></p>
+                <p id="playerXP"></p>
+                <p id="playerLevel"></p>
+                <p id="playerDamage"></p>
             </div>
+        </div>
+
+        <div id="enemyStats" class="textBackground1">
+            <p id="enemyName"></p>
+            <div class="healthBarContainer">    
+                <div class="healthBar" id="enemyHealthBar"></div>
+            </div>
+            <p id="enemyHealth"></p>
+        </div>
+        
     </div>
-</div>
-    
-<div id="battleButton">BATTLE</div>
-<div id="returnButton">
-    <p>Return to Shop</p>
-</div>
-            
-<div class="bottomContainer">
-    <img id="playerSprite" src="assets/images/knight/png/Idle1.png">
-    <img id="enemySprite" src="assets/images/zombies/male/Idle1.png">
-</div>
-<script type="text/javascript" src="script.js"></script>
+    <div class="spriteContainer">
+        <img id="playerSprite" src="assets/images/knight/png/Idle1.png">
+        <img id="enemySprite" src="assets/images/zombies/male/Idle1.png">
+    </div>
+    <div class="eventContainer textBackground1">
+        <div id="eventTextContainer">
+                
+        </div>
+        <div class="eventButtonContainer">
+            <input type="button" class="eventButton" id="attackButton" value="ATTACK">
+            <input type="button" class="eventButton" id="shopButton">
+            <input type="button" class="eventButton" id="specialEventButton">
+        </div>
+    </div>
+<script type="text/javascript" src="battleScreen.js"></script>
 <!-- <script type="text/javascript" src="landingpage.js"></script> -->
 </body>
 </html>
