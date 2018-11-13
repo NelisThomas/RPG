@@ -24,8 +24,7 @@ let deadArray = [
     "Dead10.png"
 ];
 
-// document.querySelector(".genderButton").addEventListener("click", (event)=> submitButton());
-let canClick = true;
+let highScoreArray = [];
 let userName;
 
 
@@ -33,7 +32,32 @@ let userName;
 document.getElementById("maleButton").addEventListener("click", setGenderMale);
 document.getElementById("femaleButton").addEventListener("click", setGenderFemale);
 
-
+function animateScroll(duration) {
+    var start = document.getElementById("scoreBoard").scrollTop;
+    var end = document.getElementById("scoreBoard").scrollHeight;
+    var change = end - start;
+    var increment = 3;
+    function easeInOut(currentTime, start, change, duration) {
+        // by Robert Penner
+        currentTime /= duration / 2;
+        if (currentTime < 1) {
+        return change / 2 * currentTime * currentTime + start;
+        }
+        currentTime -= 1;
+        return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
+    }
+    function animate(elapsedTime) {
+        elapsedTime += increment;
+        var position = easeInOut(elapsedTime, start, change, duration);
+        document.getElementById("scoreBoard").scrollTop = position;
+        if (elapsedTime < duration) {
+        setTimeout(function() {
+            animate(elapsedTime);
+        }, increment)
+        }
+    }
+    animate(0);
+}
 function isAnyPartOfElementInViewport(element) {
 
     // Credit to StokeMasterJack for this function https://gist.github.com/davidtheclark/5515733
@@ -82,7 +106,7 @@ function setGenderMale(){
         alert("Invalid name, please try again");
     }
     
-};
+}
 function setGenderFemale(){
     sessionStorage.clear();
     var x = document.getElementById("nameInput").value;
@@ -101,7 +125,7 @@ function setGenderFemale(){
         alert("Invalid name, please try again");
     }
     
-};
+}
 function playerLoop(array, button, imgLocation, direction){
     console.log("playerLoop()");
     direction(button);
@@ -145,4 +169,18 @@ function playerAnimation(array, button, imgLocation){
         }
     }
 }
+// function submitHighScore(){
+//     let newStringEntry = localStorage.getItem('highScoreEntry');
+//     let entry = JSON.parse(newStringEntry);
+//     console.log(entry);
+//     highScoreArray.push(entry);
+//     console.log(highScoreArray);
+//     localStorage.setItem("ScoreBoard", JSON.stringify(highScoreArray));
+//     animateScroll(500);
+// }
+// function startIndex(){
+//     highScoreArray = localStorage.getItem("ScoreBoard", highScoreArray);
+//     submitHighScore();
+// }
+// window.onload = startIndex;
 

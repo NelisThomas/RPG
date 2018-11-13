@@ -7,6 +7,7 @@ body {
     left: 0;
     padding: 0;
     margin: 0;
+    font-family: 'Roboto Mono', monospace;
 }
 /* div{
     border: 1px solid black;
@@ -26,7 +27,6 @@ body {
 .statsContainer{
   height: 40vh;
   width: 100%;
-  /* background-color: #2b2b2bd7; */
   display: grid;
   grid-template-columns: 1fr 1fr;
   text-align: center;
@@ -40,6 +40,15 @@ body {
 }
 #playerStats, #enemyStats{
   text-align: center;
+  width: 80%;
+  background-color: #07071bf3;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0 0 25px 25px;
+  border-left: 3px solid;
+  border-right: 3px solid;
+  border-bottom: 3px solid;
+  border-color: whitesmoke;
 }
 /* HEALTHBARS */
 .healthBar {
@@ -70,14 +79,17 @@ body {
 #enemySprite{
   transform: rotateY(180deg);
   right: 15%;
+  z-index: 50;
+  bottom: 0%;
 }
 #playerSprite{
    left: 15%;
+   z-index: 60;
+   bottom: -5%;
 }
 #enemySprite, #playerSprite{
    position: absolute;  
-   height: 105%;
-   bottom: 0%;
+   height: 100%;
    width: auto;
    /* bottom: 0px; */
 }
@@ -104,12 +116,17 @@ body {
   grid-template-columns: 2fr 1fr;
   width: 100%;
   height: 25vh;
+  border-top: 2px solid whitesmoke;
 }
 #eventTextContainer{
   overflow: scroll;
   word-break: break-all;
   margin: 1%;
   color: beige;
+  margin-left: 20%;
+}
+#eventTextContainer p:last-child {
+  color: #fbff00;
 }
 ::-webkit-scrollbar {
   display: none;
@@ -122,12 +139,16 @@ body {
 .eventButton{
   height: 5vh;
   border-radius: 15px;
+  text-align: center;
+  line-height: 150%;
+  border: 1px solid white;
+  margin-right: 3%;
 }
 #attackButton{
   background-color: #c00b0b;
 }
 #shopButton{
-
+  background-color: #2f92e4;
 }
 #specialEventButton{
 
@@ -152,7 +173,12 @@ body {
   width: auto;
 }
 .textBackground1{
-  background-color: #2b2b2bd7;
+  color: #eeeeee;
+  font-weight: bold;
+  font-size: 18px;
+}
+.textBackground2{
+  background-color: #0a0329da;
   color: #eeeeee;
   font-weight: bold;
   font-size: 18px;
@@ -167,4 +193,37 @@ body {
 }
 .invisible{
   visibility: hidden;
+}
+/* ANIMATIONS */
+@-webkit-keyframes flash {
+  from,
+  50%,
+  to {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+@keyframes flash {
+  from,
+  0%,
+  50%,
+  to {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+.flashAnimation{
+  animation-name: flash;
+  animation-duration: 75ms;
+  animation-iteration-count: 2;
+
 }

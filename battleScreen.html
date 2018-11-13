@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="battlescreen.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 </head>
 <body>
     
@@ -22,6 +23,7 @@
                 <p id="playerXP"></p>
                 <p id="playerLevel"></p>
                 <p id="playerDamage"></p>
+                <p id="playerMoney"></p>
             </div>
         </div>
 
@@ -38,14 +40,14 @@
         <img id="playerSprite" src="assets/images/knight/png/Idle1.png">
         <img id="enemySprite" src="assets/images/zombies/male/Idle1.png">
     </div>
-    <div class="eventContainer textBackground1">
+    <div class="eventContainer textBackground2">
         <div id="eventTextContainer">
                 
         </div>
         <div class="eventButtonContainer">
-            <input type="button" class="eventButton" id="attackButton" value="ATTACK">
-            <input type="button" class="eventButton" id="shopButton">
-            <input type="button" class="eventButton" id="specialEventButton">
+            <div type="button" class="eventButton" id="attackButton">ATTACK</div>
+            <div type="button" class="eventButton" id="shopButton">GO TO SHOP</div>
+            <div type="button" class="eventButton" id="specialEventButton"></div>
         </div>
     </div>
 <script type="text/javascript" src="battleScreen.js"></script>

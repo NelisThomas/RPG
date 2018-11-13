@@ -9,6 +9,7 @@ body{
     z-index: 100;
     top: 0;
     left: 0;
+    font-family: 'Roboto Mono', monospace;
 }
 .flexContainer{
     display: flex;
@@ -47,7 +48,7 @@ body{
     background-color: white;
 }
 .textBackground1{
-    background-color: #2d58b49a;
+    background-color: #072361da;
     border-top: 2px solid white;
     color: #eeeeee;
     font-weight: bold;
@@ -58,6 +59,7 @@ body{
 .playerInfoContainer{
     display: grid;
     grid-template-columns: 1fr 1fr;
+    font-size: 25px;
 }
 .playerStats{
     display: flex;
@@ -79,7 +81,17 @@ position: relative;
     width: 100%;
     height: 20%;
     bottom: 0;
-    background-color: #f10707ef;
+    font-size: 1.5vw;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+        background: rgba(241,111,92,1);
+        background: -moz-linear-gradient(left, rgba(241,111,92,1) 0%, rgba(248,80,50,1) 15%, rgba(246,41,12,1) 84%, rgba(241,111,92,1) 100%);
+        background: -webkit-gradient(left top, right top, color-stop(0%, rgba(241,111,92,1)), color-stop(15%, rgba(248,80,50,1)), color-stop(84%, rgba(246,41,12,1)), color-stop(100%, rgba(241,111,92,1)));
+        background: -webkit-linear-gradient(left, rgba(241,111,92,1) 0%, rgba(248,80,50,1) 15%, rgba(246,41,12,1) 84%, rgba(241,111,92,1) 100%);
+        background: -o-linear-gradient(left, rgba(241,111,92,1) 0%, rgba(248,80,50,1) 15%, rgba(246,41,12,1) 84%, rgba(241,111,92,1) 100%);
+        background: -ms-linear-gradient(left, rgba(241,111,92,1) 0%, rgba(248,80,50,1) 15%, rgba(246,41,12,1) 84%, rgba(241,111,92,1) 100%);
+        background: linear-gradient(to right, rgba(241,111,92,1) 0%, rgba(248,80,50,1) 15%, rgba(246,41,12,1) 84%, rgba(241,111,92,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f16f5c', endColorstr='#f16f5c', GradientType=1 );
 }
 
 /* EVENT CONTAINER */
@@ -97,6 +109,9 @@ word-break: break-all;
 margin: 1%;
 color: beige;
 }
+#eventTextContainer p:last-child {
+color: #fbff00;
+}
 ::-webkit-scrollbar {
 display: none;
 }
@@ -109,6 +124,7 @@ justify-content: space-around;
     height: 5vh;
     border-radius: 15px;
     margin-right: 3%; 
+    border: 1px solid white;
 }
 #attackButton{
     background-color: #528eb6ec;
