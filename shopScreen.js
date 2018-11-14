@@ -3,7 +3,7 @@ function ShopItem(name, price){
     this.name = name;
     this.price = price;
 }
-let smallHealthPotion = new ShopItem("Small Health Potion",5);
+let smallHealthPotion = new ShopItem("Small Health Potion", 5);
 let bigHealthPotion = new ShopItem("Big Health Potion", 25);
 let incMaxHPPotion = new ShopItem("Increase Maximum HP", 30);
 let incDamagePotion = new ShopItem("Increase Damage Potion", 15);
@@ -35,9 +35,9 @@ let incDamagePotion = new ShopItem("Increase Damage Potion", 15);
         "'Welcome to my shop, Hero.'",
         "'Greetings!'"
     ]
-    // LISTENERS
-    var attackButton = document.getElementById("attackButton");
-    attackButton.addEventListener("click", goToBattle);
+// LISTENERS
+var attackButton = document.getElementById("attackButton");
+attackButton.addEventListener("click", goToBattle);
 
 // VARIABLE
     let smallHPPotionButton = document.getElementById("smallHPPotion");
@@ -181,11 +181,38 @@ function incDamage(){
         logEvent(noMoneyArray[Math.floor(Math.random()*noMoneyArray.length)]);
     }
 }
+function rememberPrices(){
+    if (sessionStorage.getItem('smallHealthPotion') != null){
+        smallHealthPotion = JSON.parse(sessionStorage.getItem('smallHealthPotion'));
+    } else {
+        smallHealthPotion = smallHealthPotion;
+    }
+    if (sessionStorage.getItem('bigHealthPotion') != null){
+        bigHealthPotion = JSON.parse(sessionStorage.getItem('bigHealthPotion'));
+    } else {
+        bigHealthPotion = bigHealthPotion;
+    }
+    if (sessionStorage.getItem('incMaxHPPotion') != null){
+        incMaxHPPotion = JSON.parse(sessionStorage.getItem('incMaxHPPotion'));
+    } else {
+        incMaxHPPotion = incMaxHPPotion;
+    }
+    if (sessionStorage.getItem('incDamagePotion') != null){
+        incDamagePotion = JSON.parse(sessionStorage.getItem('incDamagePotion'));
+    } else {
+        incDamagePotion = incDamagePotion;
+    }
+}
 function goToBattle(){
     sessionStorage.setItem('playerObject', JSON.stringify(player));
+    sessionStorage.setItem('smallHealthPotion', JSON.stringify(smallHealthPotion));
+    sessionStorage.setItem('bigHealthPotion', JSON.stringify(bigHealthPotion));
+    sessionStorage.setItem('incMaxHPPotion', JSON.stringify(incMaxHPPotion));
+    sessionStorage.setItem('incDamagePotion', JSON.stringify(incDamagePotion));
     window.location.href = "battleScreen.html";
 }
 function openShop(){
+    rememberPrices();
     updatePlayerStats();
     updateButtons();
     updateHP();
