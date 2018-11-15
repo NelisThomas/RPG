@@ -37,7 +37,9 @@ let player = new Hero(
 //ENEMIES
 let enemy1 = new Enemy("Zombie Dude", 100, 100, 12, "assets/images/zombies/male/", 15);
 let enemy2 = new Enemy("Zombie Lady", 100, 100, 11, "assets/images/zombies/female/", 15);
-let enemy3 = new Enemy("Knight", 125, 125, 13, "assets/images/knight/png/", 30);
+let enemy3 = new Enemy("Knight", 125, 125, 13, "assets/images/knight/png/", 20);
+
+
 //WEAPONS
 // let weapon1 = new Weapon("Wooden Stick", 1,2);
 // let weapon2 = new Weapon("Wooden Sword", 4,5);
