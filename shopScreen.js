@@ -61,7 +61,7 @@ function animateScroll(duration) {
         // by Robert Penner
         currentTime /= duration / 2;
         if (currentTime < 1) {
-        return change / 2 * currentTime * currentTime + start;
+            return change / 2 * currentTime * currentTime + start;
         }
         currentTime -= 1;
         return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
@@ -71,9 +71,9 @@ function animateScroll(duration) {
         var position = easeInOut(elapsedTime, start, change, duration);
         document.getElementById("eventTextContainer").scrollTop = position;
         if (elapsedTime < duration) {
-        setTimeout(function() {
-            animate(elapsedTime);
-        }, increment)
+            setTimeout(function () {
+                animate(elapsedTime);
+            }, increment)
         }
     }
     animate(0);
@@ -121,14 +121,16 @@ function updateAll(){
     updateHP();
     updatePlayerStats();
 }
+
 // SHOP ITEMS
 
 function smallHPPotion(){
     console.log("smallHPPotion()");
     if(checkMoney(smallHealthPotion.price)){
         if (player.health < player.maxHealth){
-            player.health += Math.ceil(player.maxHealth / 5);
+            player.health += 5;
             player.money -= smallHealthPotion.price;
+            smallHealthPotion.price += Math.ceil(smallHealthPotion.price * 0.1);
             updateAll();
             logEvent("You've purchased a " + smallHealthPotion.name + " for " + smallHealthPotion.price + " gold.")
             logEvent(afterPurchaseArray[Math.floor(Math.random()*afterPurchaseArray.length)]);
@@ -136,7 +138,8 @@ function smallHPPotion(){
             logEvent("You are already at full health.");
         }
     } else {
-        logEvent(noMoneyArray[Math.floor(Math.random()*noMoneyArray.length)]);
+        logEvent(noMoneyArray[Math.floor(Math.random() * noMoneyArray.length)]);
+        console.log("event logged");
     }
 }
 function fullHP() {

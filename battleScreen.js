@@ -34,7 +34,7 @@ let player = new Hero(
 // let hero2 = new Hero("John Doe", 100, 100, 50, 1, 0, "assets/images/ninja/");
 
 
-//ENEMIES
+//ENEMIES------------------NAME---HEALTH-MAXHP-DMG---IMG LOCATION---------------GOLD
 let enemy1 = new Enemy("Zombie Dude", 100, 100, 12, "assets/images/zombies/male/", 15);
 let enemy2 = new Enemy("Zombie Lady", 100, 100, 11, "assets/images/zombies/female/", 15);
 let enemy3 = new Enemy("Knight", 125, 125, 13, "assets/images/knight/png/", 20);
@@ -429,13 +429,13 @@ function damageEnemy(player, enemy) {
     let damagedEnemyAnimationTimeout = setTimeout(() => {
         enemySprite.classList.add("flashAnimation");
     }, 250);
-
-    var yeet = Math.random();
-    if (yeet < 0.1){
+    
+    if (Math.random() < 0.1) {
+        playerAnimation(attackArray, player);
         logEvent("You missed!");
         var x = setTimeout(() => {
             damagePlayer(player, enemy);
-        }, 300);
+        }, 700);
     } else {
         playerAnimation(attackArray, player);
         let x = setInterval(damageAnimation, 25);
