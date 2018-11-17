@@ -30,8 +30,6 @@ let player = new Hero(
     0, //XP
     sessionStorage.getItem("gender"), //Img Location - value defined in index.js
     30); //Money
-// let hero1 = new Hero("John Doe", 100, 100, 50, 1, 0, "assets/images/ninja/");
-// let hero2 = new Hero("John Doe", 100, 100, 50, 1, 0, "assets/images/ninja/");
 
 
 //ENEMIES
@@ -128,15 +126,20 @@ playerName.addEventListener("click", (event)=>changeValue(player, name, "Enter y
 //REFERENCED FUNCTIONS
 function calcDmg(playerOrEnemy){
     let x = Math.random();
+    let baseDmg;
     if (x < 0.4){
-        if(x< 0.1){
-            return (playerOrEnemy.damage - ( Math.floor(Math.random() * (5 - 1) ) + 1));
+        if(x< 0.2){
+            baseDmg = (playerOrEnemy.damage - ( Math.floor(Math.random() * (5 - 1) ) + 1));
         } else {
-        return (playerOrEnemy.damage + ( Math.floor(Math.random() * (5 - 1) ) + 1));
+        baseDmg = (playerOrEnemy.damage + ( Math.floor(Math.random() * (5 - 1) ) + 1));
         }
     } else {
-        return playerOrEnemy.damage;
+        baseDmg = playerOrEnemy.damage;
     }
+    endDmg = baseDmg + Math.floor(baseDmg * (player.level / 10));
+    console.log(baseDmg);
+    console.log(endDmg);
+    return endDmg;
 }
 function animateScroll(duration) {
     var start = document.getElementById("eventTextContainer").scrollTop;
@@ -464,7 +467,7 @@ function damageEnemy(player, enemy) {
                         visible(shopButton);
                         enemyAnimation(deadArray, randomEnemy);
                         playerLoop(walkArray, player);
-                        xpIncrement(50);
+                        xpIncrement(25);
                         if ((player.health/player.maxHealth)*100 < 25){
                             logEvent(lowHPArray[Math.floor(Math.random()*lowHPArray.length)]);
                         }
@@ -478,7 +481,6 @@ function damageEnemy(player, enemy) {
                     }
                 }
         }
-        xpIncrement(20);
     }
 }
 function damagePlayer(player, enemy) {
