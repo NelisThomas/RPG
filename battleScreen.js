@@ -137,8 +137,6 @@ function calcDmg(playerOrEnemy){
         baseDmg = playerOrEnemy.damage;
     }
     endDmg = baseDmg + Math.floor(baseDmg * (player.level / 10));
-    console.log(baseDmg);
-    console.log(endDmg);
     return endDmg;
 }
 function animateScroll(duration) {
@@ -321,6 +319,20 @@ function enemyMove(enemy){
         }
     }
 }
+function enemyMoveAway(){
+    console.log("enemyMoveAway()");
+    var pos = 0;
+    var x = setInterval(y, 50);
+    function y(){
+        if (isAnyPartOfElementInViewport(enemySprite)){
+            pos--;
+            enemySprite.style.marginRight = pos + "%";
+        } else {
+            clearInterval(x);
+            visible(shopButton);
+        }
+    }
+}
 function enemyLoop(array, enemy){
     console.log("enemyLoop()");
     var x = setInterval(y, 50);
@@ -335,8 +347,8 @@ function enemyLoop(array, enemy){
                 }
             }
         } else {
+            clearInterval(x);
             if (checkAlive(player) === false){
-                clearInterval(x);
                 logHighScore();
                 lastFrame(deadArray, playerSprite, player);
                 alert(player.name + " has died to a " + randomEnemy.name +
@@ -346,7 +358,6 @@ function enemyLoop(array, enemy){
             }
         }
     }
-    enemyMove(enemy);
 }
 function playerMove(player){
     console.log("playerMove()");
@@ -418,21 +429,34 @@ function playerAnimation(array, player){
     }
     resetImg(playerSprite, player);
 }
+function enemyFlee(){
+    console.log("enemyFlee()");
+    enemySprite.style.transform = "rotateY(-360deg)";
+    enemyLoop(walkArray, randomEnemy);
+    enemyMoveAway();
+    logEvent(`${randomEnemy.name} has fled!`);
+    specialButton.addEventListener("click",chaseEnemy);
+    specialButton.changeValue = "Chase!";
+    visible(specialButton);
+    function chaseEnemy(){
+
+    }
+}
 //CALLED FUNCTIONS THAT CALL OTHER FUNCTIONS WITHIN
 
 function damageEnemy(player, enemy) {
-    console.log("function damageEnemy() started");
+    console.log("damageEnemy()");
     invisible(attackButton);
     let bar = enemyHealthBar;
     let hp = enemyHealth;
     let preHealth = enemy.health;
     let endHealth = enemy.health - calcDmg(player);
-    let damagedEnemyAnimationTimeout = setTimeout(() => {
+    setTimeout(() => {
         enemySprite.classList.add("flashAnimation");
     }, 250);
 
-    var yeet = Math.random();
-    if (yeet < 0.1){
+    let xt = Math.random();
+    if (xt < 0.1){
         logEvent("You missed!");
         var x = setTimeout(() => {
             damagePlayer(player, enemy);
@@ -441,45 +465,45 @@ function damageEnemy(player, enemy) {
         playerAnimation(attackArray, player);
         let x = setInterval(damageAnimation, 25);
         function damageAnimation() {
-                if (enemy.health == endHealth) {
-                    enemySprite.classList.remove("flashAnimation");
-                    bar.style.backgroundColor = "rgb(237, 50, 50)";
-                    logEvent(player.name + " attacked " + randomEnemy.name + " for " + (preHealth - endHealth) + " damage.");
-                    clearInterval(x);
-                    if (enemy.health > 0){
-                        var y = setTimeout(z, 500)
-                        function z(){
-                            damagePlayer(player, enemy);
-                        }
-                    }
-                } else {
-                    let enemyHealthPercentage = (enemy.health / enemy.maxHealth) * 100;
-                    bar.style.width = enemyHealthPercentage + "%";
-                    enemy.health -= 1;
-                    bar.style.width = bar.style.width - 1;
-                    bar.style.backgroundColor = "rgb(237, 56, 56)";
-                    hp.innerHTML = "<i class='fas fa-heart'></i> " + enemy.health + "/" + enemy.maxHealth;
-                    if (enemy.health < 1) {
-                        logEvent(player.name + deadEnemyArray[Math.floor(Math.random()*deadEnemyArray.length)] + randomEnemy.name + ".");
-                        getMoney(randomEnemy);
-                        invisible(enemyHealthBar);
-                        invisible(attackButton);
-                        visible(shopButton);
-                        enemyAnimation(deadArray, randomEnemy);
-                        playerLoop(walkArray, player);
-                        xpIncrement(25);
-                        if ((player.health/player.maxHealth)*100 < 25){
-                            logEvent(lowHPArray[Math.floor(Math.random()*lowHPArray.length)]);
-                        }
-                        clearInterval(x);
-                        
-                        let y = setTimeout(deadEnemy, 10);
-                        function deadEnemy() {
-                            // alert(player.name + " has defeated " + enemy.name);
-                            visible(shopButton);
-                        }
+            if (enemy.health == endHealth) {
+                enemySprite.classList.remove("flashAnimation");
+                bar.style.backgroundColor = "rgb(237, 50, 50)";
+                logEvent(player.name + " attacked " + randomEnemy.name + " for " + (preHealth - endHealth) + " damage.");
+                clearInterval(x);
+                if (enemy.health > 0){
+                    var y = setTimeout(z, 500)
+                    function z(){
+                        damagePlayer(player, enemy);
                     }
                 }
+            } else {
+                let enemyHealthPercentage = (enemy.health / enemy.maxHealth) * 100;
+                bar.style.width = enemyHealthPercentage + "%";
+                enemy.health -= 1;
+                bar.style.width = bar.style.width - 1;
+                bar.style.backgroundColor = "rgb(237, 56, 56)";
+                hp.innerHTML = "<i class='fas fa-heart'></i> " + enemy.health + "/" + enemy.maxHealth;
+                if (enemy.health < 1) {
+                    logEvent(player.name + deadEnemyArray[Math.floor(Math.random()*deadEnemyArray.length)] + randomEnemy.name + ".");
+                    getMoney(randomEnemy);
+                    invisible(enemyHealthBar);
+                    invisible(attackButton);
+                    visible(shopButton);
+                    enemyAnimation(deadArray, randomEnemy);
+                    playerLoop(walkArray, player);
+                    xpIncrement(25);
+                    if ((player.health/player.maxHealth)*100 < 25){
+                        logEvent(lowHPArray[Math.floor(Math.random()*lowHPArray.length)]);
+                    }
+                    clearInterval(x);
+                    
+                    let y = setTimeout(deadEnemy, 10);
+                    function deadEnemy() {
+                        // alert(player.name + " has defeated " + enemy.name);
+                        visible(shopButton);
+                    }
+                }
+            }
         }
     }
 }
@@ -488,19 +512,20 @@ function damagePlayer(player, enemy) {
     // POSSIBLE - CHANCE THAT Enemy FLEES, ON FLEE: ANYMATION RUN AWAY, STORE DATA FROM Enemy, IF CHASE RESTORE FIGHT
     // WITH OLD ENEMY VALUES, ON GO TO STORE, CLEAR ENEMY VALUE
     invisible(attackButton);
-    var x = checkAlive(enemy);
-    enemyAnimation(attackArray, randomEnemy);
-    if (x === true){
-        var yeet = Math.random();
-        if (yeet < 0.11){
+    if (checkAlive(enemy) === true){
+        if (Math.random() < 0.11){
+            enemyAnimation(attackArray, randomEnemy);
             logEvent(randomEnemy.name + " has missed!");
             visible(attackButton);
+        } else if(randomEnemy.health < 80 && Math.random() < 0.9){
+            enemyFlee();
         } else {
+        enemyAnimation(attackArray, randomEnemy);
         let bar = playerHealthBar;
         let hp = playerHealth;
         let preHealth = player.health;
         let endHealth = player.health - calcDmg(randomEnemy);
-        let damagedEnemyAnimationTimeout = setTimeout(() => {
+        setTimeout(() => {
             playerSprite.classList.add("flashAnimation");
         }, 250);
 
@@ -529,6 +554,7 @@ function damagePlayer(player, enemy) {
                         logEvent(player.name + deadPlayerArray[Math.floor(Math.random()*deadPlayerArray.length)] + randomEnemy.name + ".");
                         if (isAnyPartOfElementInViewport(enemySprite)){
                             enemyLoop(walkArray, randomEnemy);
+                            enemyMove(randomEnemy);
                         }                        
                     }
                 }
