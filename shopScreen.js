@@ -6,7 +6,7 @@ function ShopItem(name, price){
 let smallHealthPotion = new ShopItem("Small Health Potion", 5);
 let bigHealthPotion = new ShopItem("Big Health Potion", 25);
 let incMaxHPPotion = new ShopItem("Increase Maximum HP", 30);
-let incDamagePotion = new ShopItem("Increase Damage Potion", 15);
+let incDamagePotion = new ShopItem("Increase Damage Potion", 20);
 // VARIABLES
     let player = JSON.parse(sessionStorage.getItem('playerObject'));
     let healthBar = document.getElementById("healthDisplay");
@@ -83,7 +83,7 @@ function logEvent(content){
     var t = document.createTextNode(content);
     p.appendChild(t);
     document.getElementById("eventTextContainer").appendChild(p);
-    animateScroll();
+    animateScroll(500);
 }
 function checkHealth(){
     if (player.health > player.maxHealth){
@@ -129,6 +129,7 @@ function smallHPPotion(){
         if (player.health < player.maxHealth){
             player.health += Math.ceil(player.maxHealth / 5);
             player.money -= smallHealthPotion.price;
+            smallHealthPotion.price += 1;
             updateAll();
             logEvent("You've purchased a " + smallHealthPotion.name + " for " + smallHealthPotion.price + " gold.")
             logEvent(afterPurchaseArray[Math.floor(Math.random()*afterPurchaseArray.length)]);
@@ -168,12 +169,13 @@ function incMaxHP(){
         logEvent(noMoneyArray[Math.floor(Math.random()*noMoneyArray.length)]);
     }
 }
+let dmgInc = 2;
 function incDamage(){
     console.log("incDamage()");
     if(checkMoney(incDamagePotion.price)){
-        player.damage += 1;
+        player.damage += dmgInc;
         player.money -= incDamagePotion.price;
-        incDamagePotion.price += Math.ceil((incDamagePotion.price / 100)*15);
+        incDamagePotion.price += Math.ceil((incDamagePotion.price / 100)*25);
         updateAll();
         logEvent("You've purchased a " + incDamagePotion.name + " for " + incDamagePotion.price + " gold.")
         logEvent(afterPurchaseArray[Math.floor(Math.random()*afterPurchaseArray.length)]);

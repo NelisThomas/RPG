@@ -20,6 +20,22 @@ function Hero(name, health, maxHealth, damage, level, xp, imageLocation, money) 
     // this.armed = armed;
     // this.weapon = weapon;
 }
+//VALUE TWEAKING
+let stats = {
+    //rnd = value between 0 and 1
+
+    //PLAYER:
+    pHPMinToChasePlayer: 30, //Enemy chases player if health is lower than <== OR
+    turnsTilFlee: 2, //Turns to pass until the player can flee again, counting starts at 0
+    pRndMissChance: 0.15, //Chance that player misses
+
+    //ENEMY:
+    rndEnemyGetsAway: 0.2, //Chance enemy gets away after fleeing
+    rndMinToChasePlayer: 0.4, // rnd is lower than <==
+    eHPToFlee: 65, //Enemy flees if HP is lower than <== AND
+    rndToFlee: 0.2, // rnd is lower than <==
+    eRndMissChance: 0.2 //Chance that enemy misses
+};
 //PLAYER
 let player = new Hero(
     sessionStorage.getItem("userName"), //Name
@@ -36,9 +52,7 @@ let player = new Hero(
 let enemy1 = new Enemy("Zombie Dude", 100, 100, 12, "assets/images/zombies/male/", 15);
 let enemy2 = new Enemy("Zombie Lady", 100, 100, 11, "assets/images/zombies/female/", 15);
 let enemy3 = new Enemy("Knight", 125, 125, 13, "assets/images/knight/png/", 30);
-//WEAPONS
-// let weapon1 = new Weapon("Wooden Stick", 1,2);
-// let weapon2 = new Weapon("Wooden Sword", 4,5);
+
 let enemies = [enemy1, enemy2, enemy3];
 let randomEnemy;
 
@@ -61,7 +75,6 @@ var eventLog = document.getElementById("eventTextContainer");
 var attackButton = document.getElementById("attackButton");
 var shopButton = document.getElementById("shopButton");
 var specialButton = document.getElementById("specialEventButton");
-// var shopScreen = document.getElementById("shopScreen");
 //VARIABLES
 
 //IMAGE ARRAYS
@@ -120,8 +133,8 @@ let deadEnemyArray = [
 //LISTENERS
 // newattackButton.addEventListener("click", openBattleScreen);
 shopButton.addEventListener("click", returnShop);
-attackButton.addEventListener("click", (event)=>playerAttack(player, randomEnemy));
-playerName.addEventListener("click", (event)=>changeValue(player, name, "Enter your name", true ));
+attackButton.addEventListener("click", (event)=>damageEnemy(player, randomEnemy));
+specialButton.addEventListener("click", playerFlee);
 
 //REFERENCED FUNCTIONS
 function calcDmg(playerOrEnemy){
@@ -178,19 +191,18 @@ function logHighScore(){
 }
 function getMoney(enemy){
     let x = Math.random();
-    if (x>0.5){
-        let cashToGet = Math.ceil(enemy.goldDropped * 0.95);
+    let gold = enemy.goldDropped * (1+(player.level/100));
+    if (x<0.4){
+        let cashToGet = Math.ceil(gold * 0.95);
         player.money += cashToGet;
         logEvent("You found " + cashToGet + " gold pieces.");
         displayStats(player, randomEnemy);
     } else {
-        let cashToGet = Math.ceil(enemy.goldDropped * 1.05);
+        let cashToGet = Math.ceil(gold * 1.05);
         player.money += cashToGet;
         logEvent("You found " + cashToGet + " gold pieces.");
         displayStats(player, randomEnemy);
     }
-    
-    
 }
 function isntNull(x){
     if (x !== null){
@@ -200,7 +212,7 @@ function isntNull(x){
     }
 }
 function visible(x) {
-    x.setAttribute("visible", x);
+    x.classList.add("visible");
     x.classList.remove("invisible");
 }
 function invisible(x) {
@@ -231,7 +243,7 @@ function displayStats(player, enemy) {
     visible(enemyHealthBar);
     // enemyDamage.innerHTML = "Damage: " + enemy.damage;
 }
-function isAnyPartOfElementInViewport(element) {
+function isInViewPort(element) {
 
     // Credit to StokeMasterJack for this function https://gist.github.com/davidtheclark/5515733
 
@@ -251,12 +263,19 @@ function selectRandomEnemy(){
     randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
 }
 function xpCheck(){
-    console.log("xpCheck");
     if (player.xp >= 100){
         player.xp -= 100;
         player.level += 1;
         playerLevel.innerHTML = "Level: " + player.level;
         playerXP.innerHTML = "XP: " + player.xp;
+        // player.health = (player.maxHealth *;
+        player.damage += 1;
+        enemies.forEach(enemy => {
+            //ENEMIES GET STRONGER
+            enemy.maxHealth += (enemy.maxHealth/100)*15;
+            enemy.damage += 1;
+            displayStats(player, randomEnemy);
+        });
         console.log("lvl up");   
     }
 }
@@ -283,6 +302,7 @@ function xpIncrement(amount){
 function returnShop() {
     sessionStorage.setItem('playerObject', JSON.stringify(player));
     window.location.href = "shopScreen.html";
+    console.log("returnShop")
 }
 function refresh(character) {
     // player.health = player.maxHealth;
@@ -304,12 +324,12 @@ function lastFrame(array, xsprite, character){
     xsprite.src = character.imageLocation + array[array.length - 1];
 }
 //ANIMATIONS
-function enemyMove(enemy){
+function enemyMove(){
     console.log("enemyMove()");
     var pos = 0;
     var x = setInterval(y, 50);
     function y(){
-        if (isAnyPartOfElementInViewport(enemySprite)){
+        if (isInViewPort(enemySprite)){
             pos++;
             enemySprite.style.marginRight = pos + "%";
         } else {
@@ -321,10 +341,11 @@ function enemyMove(enemy){
 }
 function enemyMoveAway(){
     console.log("enemyMoveAway()");
+    enemySprite.style.transform = "rotateY(0deg)";
     var pos = 0;
     var x = setInterval(y, 50);
     function y(){
-        if (isAnyPartOfElementInViewport(enemySprite)){
+        if (isInViewPort(enemySprite)){
             pos--;
             enemySprite.style.marginRight = pos + "%";
         } else {
@@ -338,7 +359,7 @@ function enemyLoop(array, enemy){
     var x = setInterval(y, 50);
     var i = 0;
     function y(){
-        if (isAnyPartOfElementInViewport(enemySprite)){
+        if (isInViewPort(enemySprite)){
             if (i < array.length){
                 enemySprite.src = enemy.imageLocation + array[i];
                 i++;
@@ -359,12 +380,12 @@ function enemyLoop(array, enemy){
         }
     }
 }
-function playerMove(player){
+function playerMove(interval){
     console.log("playerMove()");
     var pos = 0;
-    var x = setInterval(y, 50);
+    var x = setInterval(y, interval);
     function y(){
-        if (isAnyPartOfElementInViewport(playerSprite)){
+        if (isInViewPort(playerSprite)){
             pos++;
             playerSprite.style.marginLeft = pos + "%";
         } else {
@@ -374,13 +395,26 @@ function playerMove(player){
         }
     }
 }
+function playerMoveAway(){
+    console.log("playerMoveAway()");
+    var pos = 0;
+    let x = setInterval(() => {
+        if (isInViewPort(playerSprite)){
+            pos--;
+            playerSprite.style.marginLeft = pos + "%";
+        } else {
+            clearInterval(x);
+            playerSprite.style.marginLeft = 25 + "%";
+            invisible(playerSprite);
+        }
+    }, 50);
+}
 function playerLoop(array, player){
     console.log("playerLoop()");
-    playerMove(player);
     var x = setInterval(y, 50);
     var i = 0;
     function y(){
-        if (isAnyPartOfElementInViewport(playerSprite)){
+        if (isInViewPort(playerSprite)){
             if (i < array.length-1){
                 i++;
                 playerSprite.src = player.imageLocation + array[i];
@@ -411,7 +445,6 @@ function enemyAnimation(array, enemy){
     resetImg(enemySprite, enemy);
 }
 function playerAnimation(array, player){
-    console.log("playerAttackAnimation()");
     var x = setInterval(y, 50);
     var i=0;
     function y(){
@@ -429,24 +462,104 @@ function playerAnimation(array, player){
     }
     resetImg(playerSprite, player);
 }
+function chaseEnemy(){
+    console.log("chaseEnemy()");
+    invisible(specialButton);
+    specialButton.removeEventListener("click", chaseEnemy);
+    playerMove(25);
+    playerLoop(walkArray, player);
+    let y = setInterval(checkVP, 5)
+    function checkVP(){       //only run once playerSprite is out of view
+        if (isInViewPort(playerSprite) === false){
+            clearInterval(y);
+            setTimeout(() => {
+                let x = Math.random();
+                if (x < stats.rndEnemyGetsAway){
+                    //enemy got away
+                    playerSprite.style = "";
+                    enemySprite.style = "";
+                    resetImg(playerSprite, player);
+                    resetImg(enemySprite, randomEnemy);
+                    visible(attackButton);
+                    visible(playerSprite);
+                    visible(enemySprite);
+                    invisible(shopButton);
+                    logEvent(`You caught up with ${randomEnemy.name}.`);
+                } else {
+                    //caught enemy
+                    invisible(enemySprite);
+                    logEvent("The enemy got away");
+                }
+            }, 50);
+        }
+    }
+}
 function enemyFlee(){
     console.log("enemyFlee()");
-    enemySprite.style.transform = "rotateY(-360deg)";
     enemyLoop(walkArray, randomEnemy);
     enemyMoveAway();
     logEvent(`${randomEnemy.name} has fled!`);
+    specialButton.removeEventListener("click", playerFlee);
     specialButton.addEventListener("click",chaseEnemy);
-    specialButton.changeValue = "Chase!";
+    specialButton.innerHTML = "Chase!";
     visible(specialButton);
-    function chaseEnemy(){
-
-    }
+}
+function continueBattle(){
+    console.log("continueBattle")
+    damagePlayer(player,randomEnemy);
+    playerSprite.style = "";
+    enemySprite.style = "";
+    visible(playerSprite);
+    visible(enemySprite);
+    visible(attackButton);
+}
+var turnsSinceFlee = 0;
+function playerFlee(){
+    console.log("playerFlee()");
+    turnsSinceFlee = 0;
+    invisible(specialButton);
+    invisible(attackButton);
+    playerSprite.style.transform = "rotateY(180deg)";
+    playerLoop(walkArray, player);
+    playerMoveAway();
+    logEvent(`${player.name} has fled!`);
+    //Flee check
+    let y = setInterval(() => {
+        if (isInViewPort(playerSprite) === false){
+            setTimeout(() => {
+                playerSprite.style.transform = "rotateY(0deg)";
+                playerSprite.src = `${player.imageLocation}Idle1.png`;
+            }, 50);
+            let x = Math.random();
+            if (player.health < stats.pHPMinToChasePlayer || x < stats.rndMinToChasePlayer){
+                clearInterval(y);
+                //ENEMY CHASES PLAYER
+                enemyMove(randomEnemy);
+                logEvent(`${randomEnemy.name} is coming for you...`)
+                enemyLoop(walkArray, randomEnemy);
+                let z = setInterval(() => {
+                    if(isInViewPort(enemySprite) === false){
+                        clearInterval(z);
+                        setTimeout(() => {
+                            continueBattle();
+                        }, 500);
+                    }
+                }, 50);
+            } else {
+                logEvent("You got away.");
+                visible(shopButton);
+            }
+        }
+    },50);
 }
 //CALLED FUNCTIONS THAT CALL OTHER FUNCTIONS WITHIN
 
 function damageEnemy(player, enemy) {
-    console.log("damageEnemy()");
     invisible(attackButton);
+    if (turnsSinceFlee > stats.turnsTilFlee){
+        visible(specialButton);
+    }
+    turnsSinceFlee++;
     let bar = enemyHealthBar;
     let hp = enemyHealth;
     let preHealth = enemy.health;
@@ -455,8 +568,8 @@ function damageEnemy(player, enemy) {
         enemySprite.classList.add("flashAnimation");
     }, 250);
 
-    let xt = Math.random();
-    if (xt < 0.1){
+    let xy = Math.random();
+    if (xy < stats.pRndMissChance){
         logEvent("You missed!");
         var x = setTimeout(() => {
             damagePlayer(player, enemy);
@@ -466,6 +579,7 @@ function damageEnemy(player, enemy) {
         let x = setInterval(damageAnimation, 25);
         function damageAnimation() {
             if (enemy.health == endHealth) {
+                xpIncrement(5);
                 enemySprite.classList.remove("flashAnimation");
                 bar.style.backgroundColor = "rgb(237, 50, 50)";
                 logEvent(player.name + " attacked " + randomEnemy.name + " for " + (preHealth - endHealth) + " damage.");
@@ -485,12 +599,14 @@ function damageEnemy(player, enemy) {
                 hp.innerHTML = "<i class='fas fa-heart'></i> " + enemy.health + "/" + enemy.maxHealth;
                 if (enemy.health < 1) {
                     logEvent(player.name + deadEnemyArray[Math.floor(Math.random()*deadEnemyArray.length)] + randomEnemy.name + ".");
+                    invisible(specialButton);
                     getMoney(randomEnemy);
                     invisible(enemyHealthBar);
                     invisible(attackButton);
                     visible(shopButton);
                     enemyAnimation(deadArray, randomEnemy);
                     playerLoop(walkArray, player);
+                    playerMove(50);
                     xpIncrement(25);
                     if ((player.health/player.maxHealth)*100 < 25){
                         logEvent(lowHPArray[Math.floor(Math.random()*lowHPArray.length)]);
@@ -508,16 +624,13 @@ function damageEnemy(player, enemy) {
     }
 }
 function damagePlayer(player, enemy) {
-    console.log("function damagePlayer() started");
-    // POSSIBLE - CHANCE THAT Enemy FLEES, ON FLEE: ANYMATION RUN AWAY, STORE DATA FROM Enemy, IF CHASE RESTORE FIGHT
-    // WITH OLD ENEMY VALUES, ON GO TO STORE, CLEAR ENEMY VALUE
     invisible(attackButton);
     if (checkAlive(enemy) === true){
-        if (Math.random() < 0.11){
+        if (Math.random() < stats.eRndMissChance){
             enemyAnimation(attackArray, randomEnemy);
             logEvent(randomEnemy.name + " has missed!");
             visible(attackButton);
-        } else if(randomEnemy.health < 80 && Math.random() < 0.9){
+        } else if(randomEnemy.health < stats.eHPToFlee && Math.random() < stats.rndToFlee){
             enemyFlee();
         } else {
         enemyAnimation(attackArray, randomEnemy);
@@ -550,9 +663,10 @@ function damagePlayer(player, enemy) {
                         enemySprite.style.zIndex = 70;
                         invisible(playerHealthBar);
                         invisible(attackButton);
+                        invisible(specialButton);
                         playerAnimation(deadArray, player);
                         logEvent(player.name + deadPlayerArray[Math.floor(Math.random()*deadPlayerArray.length)] + randomEnemy.name + ".");
-                        if (isAnyPartOfElementInViewport(enemySprite)){
+                        if (isInViewPort(enemySprite)){
                             enemyLoop(walkArray, randomEnemy);
                             enemyMove(randomEnemy);
                         }                        
@@ -582,15 +696,9 @@ function openBattleScreen() {
     visible(playerSprite);
     visible(attackButton);
     invisible(shopButton);
-    invisible(specialButton);
     if (isntNull(sessionStorage.getItem('playerObject'))){
         player = JSON.parse(sessionStorage.getItem('playerObject'));   
     }
     displayStats(player, randomEnemy);
 }
 window.onload = openBattleScreen;
-function playerAttack(player, enemy) {
-    console.log("function playerAttack() started")
-    damageEnemy(player, enemy);
-    console.log("function playerAttack() ended");
-}
